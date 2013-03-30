@@ -4,7 +4,7 @@ Powerful and sometimes automagical file renaming utility.
 
 Beware, mortal, that you are stepping into realms of black magic! Only strongest arch-mages with years of experience in casting spells in the cryptic language of *Regular Expressions* can fully utilize **RenEx**! If you are not hardened by countless battles with ***bugs***, **RenEx** may as well bring your doom!
 
-But ***seriously***, **RenEx** was never meant to be a *drag-and-done* type of utility. You need in-depth knowledge of Regular Expressions to utilize it to its full potential.
+But ***seriously***, **RenEx** was never meant to be a *drag-and-done* type of utility. You need in-depth knowledge of Regular Expressions to utilize it to its full potential. Be careful using this software if you don't feel comfortable debugging regular expressions, because if you apply a wrong rule it may mess up your files in a bad way. The software does not provide a way to reverse changes made by it.
 
 **RenEx** is based on **[libWyvernzora](http://github.com/jluchiji/libWyvernzora)**, my personal library. Icons and artwork used in the project are by [Takegawa Shin](http://www.pixiv.net/member.php?id=201634).
 

@@ -101,10 +101,25 @@ namespace RenEx
                                       : RenamingRule.RuleType.Directory
                     };
             }
-     //       set
-      //      {
-      //          
-      //      }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value.Name))
+                    txtName.Text = value.Name;
+                txtMatchExp.Text = value.RegularExpression;
+                txtRepExp.Text = value.ReplacementExpression;
+                switch (value.Type)
+                {
+                    case RenamingRule.RuleType.Name:
+                        radName.Checked = true;
+                        break;
+                    case RenamingRule.RuleType.Extension:
+                        radExtension.Checked = true;
+                        break;
+                    default:
+                        radDirectory.Checked = true;
+                        break;
+                }
+            }
         }   
     }
 }

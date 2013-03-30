@@ -22,6 +22,7 @@ namespace RenEx
             Files = new List<String>();
 
             InitializeComponent();
+            UIEventHandlers();
             RenamingTabAttachEventHandlers();
             OptionsTabAttachEventHandlers();
 
@@ -32,9 +33,8 @@ namespace RenEx
                     OpenFileDialog dlg = new OpenFileDialog() {Multiselect = true};
                     if (dlg.ShowDialog() == DialogResult.OK)
                     {
-                        Files.AddRange(dlg.FileNames.Where(t => !Files.Contains(t)));
+                        AddFiles(dlg.FileNames);   
                     }
-                    UpdateUI();
                 };
             tsmiShowExtInPrev.Click += (@s, a) =>
                 {
@@ -48,13 +48,7 @@ namespace RenEx
                 };
 
             // UI Maintenance
-            lvPreview.Resize += (@s, a) =>
-                {
-                    Int32 width = (lvPreview.Width - 32) / 2;
-                    lvPreview.Columns[0].Width = width;
-                    lvPreview.Columns[1].Width = width;
-                };
-            renBtnRunRename.Click += (@s, a) => ApplyRenaming();
+            
 
         }
 
@@ -79,6 +73,12 @@ namespace RenEx
 
         public KeyValuePair<String, String>[] RenameResult { get; private set; } 
 
+
+        private void AddFiles(IEnumerable<String> fileNames)
+        {
+            Files.AddRange(fileNames.Where(t => !Files.Contains(t)));
+            UpdatePreview();
+        }
 
         private FileNameDescriptor TransformSingle(FileNameDescriptor f)
         {
@@ -164,6 +164,102 @@ namespace RenEx
 
         #region UI Maintenance
 
+        private void UIEventHandlers()
+        {
+            // Drag Drop Files
+            lvPreview.DragEnter += (@s, a) =>
+                {
+                    if (a.Data.GetDataPresent(DataFormats.FileDrop))
+                        a.Effect = DragDropEffects.Link;
+                };
+            lvPreview.DragDrop += (@s, e) =>
+                {
+                    String[] files = (String[]) e.Data.GetData(DataFormats.FileDrop);
+                    AddFiles(files);
+                };
+
+            // Resize
+            lvPreview.Resize += (@s, a) =>
+            {
+                Int32 width = (lvPreview.Width - 32) / 2;
+                lvPreview.Columns[0].Width = width;
+                lvPreview.Columns[1].Width = width;
+            };
+
+            // Context Menus
+            lvPreview.ItemSelectionChanged += (@s, e) =>
+                {
+                    Int32 count = lvPreview.SelectedItems.Count;
+
+                    tsmiPvRemSelection.Enabled = count > 0;
+                    tsmiPvExtractRule.Enabled = count == 1;
+                };
+            tsmiPvAddFiles.Click += (@s, e) =>
+                {
+                    OpenFileDialog dlg = new OpenFileDialog() { Multiselect = true };
+                    if (dlg.ShowDialog() == DialogResult.OK)
+                    {
+                        AddFiles(dlg.FileNames);
+                    }
+                };
+            tsmiPvRemSelection.Click += (@s, e) =>
+                {
+                    ListViewItem[] items = new ListViewItem[lvPreview.SelectedItems.Count];
+                    lvPreview.SelectedItems.CopyTo(items, 0);
+
+                    foreach (FileNameDescriptor fds in items.Select(f => f.Tag).OfType<FileNameDescriptor>())
+                    {
+                        Files.RemoveAll(t => StringComparer.InvariantCultureIgnoreCase.Equals(fds.ToString(), t));
+                    }
+
+                    UpdatePreview();
+                };
+            tsmiPvExtractRule.Click += (@s, e) =>
+                {
+                    FileNameDescriptor fds = lvPreview.SelectedItems[0].Tag as FileNameDescriptor;
+                    if (fds == null) return;
+
+                    RenamingRule rule = new RenamingRule();
+                    rule.Type = RenamingRule.RuleType.Name;
+                    rule.RegularExpression = Regex.Escape(fds.FileName).Replace("\\ ", " ");
+                    rule.ReplacementExpression = String.Format("{0}{1}", PathEx.GetMainFileName(fds.Directory), "[${i}]");
+
+                    RuleEditorDialog dlg = new RuleEditorDialog(this);
+                    dlg.Rule = rule;
+                    if (dlg.ShowDialog() == DialogResult.OK)
+                    {
+                        rule = dlg.Rule;
+                        rule.Active = true;
+
+                        switch (rule.Type)
+                        {
+                            case RenamingRule.RuleType.Name:
+                                {
+                                    NameRules.Add(rule);
+                                }
+                                break;
+                            case RenamingRule.RuleType.Extension:
+                                {
+                                    ExtensionRules.Add(rule);
+                                }
+                                break;
+                            case RenamingRule.RuleType.Directory:
+                                {
+                                    DirectoryRules.Add(rule);
+                                }
+                                break;
+                        }
+
+                        UpdateUI();
+                    }
+
+
+                };
+
+            // RUN RENAMING
+            renBtnRunRename.Click += (@s, a) => ApplyRenaming();
+        }
+
         private void UpdateRuleList()
         {
             lvRules.BeginUpdate();
@@ -242,10 +338,11 @@ namespace RenEx
                     //lvi.BackColor = Color.LightPink;
                 }
 
+                lvi.Tag = f;
                 lvPreview.Items.Add(lvi);
 
-                lvPreview.EndUpdate();
             }
+                lvPreview.EndUpdate();
         }
 
         private void UpdateUI()
@@ -253,7 +350,7 @@ namespace RenEx
             UpdateRuleList();
             UpdatePreview();
         }
-        
+       
 
         private String FileDescriptorToString(FileNameDescriptor f)
         {
@@ -298,6 +395,23 @@ namespace RenEx
 
                         UpdateUI();
                     }
+                };
+            renBtnRemoveRule.Click += (@s, e) =>
+                {
+                    ListViewItem[] selection = new ListViewItem[lvRules.SelectedItems.Count];
+                    lvRules.SelectedItems.CopyTo(selection, 0);
+
+                    foreach (RenamingRule rule in selection.Select(v => v.Tag).OfType<RenamingRule>())
+                    {
+                        if (rule.Type == RenamingRule.RuleType.Name)
+                            NameRules.Remove(rule);
+                        else if (rule.Type == RenamingRule.RuleType.Extension)
+                            ExtensionRules.Remove(rule);
+                        else
+                            DirectoryRules.Remove(rule);
+                    }
+
+                    UpdateUI();
                 };
             lvRules.ItemChecked += (@s, a) =>
                 {

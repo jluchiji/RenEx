@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup7 = new System.Windows.Forms.ListViewGroup("Name Rules", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup8 = new System.Windows.Forms.ListViewGroup("Extension Rules", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup9 = new System.Windows.Forms.ListViewGroup("Directory Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Name Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Extension Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Directory Rules", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +52,8 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.optBtnApply = new System.Windows.Forms.Button();
@@ -76,8 +78,15 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvPreviewState = new System.Windows.Forms.ImageList(this.components);
-            this.label4 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.cmsRuleList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsPreviewList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiPvAddFiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPvAddDirs = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiPvRemSelection = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiPvExtractRule = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPvRemApplied = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -86,6 +95,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -94,7 +104,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.optNudValLenMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.optNudValLenMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.optNudMaxExt)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.cmsPreviewList.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -185,7 +195,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.lvPreview);
             this.splitContainer1.Panel2MinSize = 350;
-            this.splitContainer1.Size = new System.Drawing.Size(784, 537);
+            this.splitContainer1.Size = new System.Drawing.Size(784, 417);
             this.splitContainer1.SplitterDistance = 366;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
@@ -201,7 +211,7 @@
             this.tabControl1.Location = new System.Drawing.Point(14, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(348, 521);
+            this.tabControl1.Size = new System.Drawing.Size(348, 401);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -213,7 +223,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 23);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(340, 494);
+            this.tabPage1.Size = new System.Drawing.Size(340, 374);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Rules";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -222,7 +232,7 @@
             // 
             this.renBtnRemoveRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnRemoveRule.Image = global::RenEx.Properties.Resources.Remove16;
-            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 463);
+            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 344);
             this.renBtnRemoveRule.Name = "renBtnRemoveRule";
             this.renBtnRemoveRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnRemoveRule.TabIndex = 3;
@@ -234,7 +244,7 @@
             this.renBtnRunRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.renBtnRunRename.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.renBtnRunRename.Image = global::RenEx.Properties.Resources.Save16;
-            this.renBtnRunRename.Location = new System.Drawing.Point(245, 463);
+            this.renBtnRunRename.Location = new System.Drawing.Point(245, 344);
             this.renBtnRunRename.Name = "renBtnRunRename";
             this.renBtnRunRename.Size = new System.Drawing.Size(87, 25);
             this.renBtnRunRename.TabIndex = 2;
@@ -246,7 +256,7 @@
             // 
             this.renBtnAddRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnAddRule.Image = global::RenEx.Properties.Resources.Add16;
-            this.renBtnAddRule.Location = new System.Drawing.Point(7, 463);
+            this.renBtnAddRule.Location = new System.Drawing.Point(7, 344);
             this.renBtnAddRule.Name = "renBtnAddRule";
             this.renBtnAddRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnAddRule.TabIndex = 1;
@@ -264,20 +274,20 @@
             this.columnHeader1});
             this.lvRules.FullRowSelect = true;
             this.lvRules.GridLines = true;
-            listViewGroup7.Header = "Name Rules";
-            listViewGroup7.Name = "lvgName";
-            listViewGroup8.Header = "Extension Rules";
-            listViewGroup8.Name = "lvgExt";
-            listViewGroup9.Header = "Directory Rules";
-            listViewGroup9.Name = "lvgDir";
+            listViewGroup1.Header = "Name Rules";
+            listViewGroup1.Name = "lvgName";
+            listViewGroup2.Header = "Extension Rules";
+            listViewGroup2.Name = "lvgExt";
+            listViewGroup3.Header = "Directory Rules";
+            listViewGroup3.Name = "lvgDir";
             this.lvRules.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup7,
-            listViewGroup8,
-            listViewGroup9});
+            listViewGroup1,
+            listViewGroup2,
+            listViewGroup3});
             this.lvRules.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvRules.Location = new System.Drawing.Point(3, 3);
             this.lvRules.Name = "lvRules";
-            this.lvRules.Size = new System.Drawing.Size(334, 453);
+            this.lvRules.Size = new System.Drawing.Size(334, 334);
             this.lvRules.TabIndex = 0;
             this.lvRules.UseCompatibleStateImageBehavior = false;
             this.lvRules.View = System.Windows.Forms.View.Details;
@@ -295,13 +305,34 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.panel1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 23);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(340, 494);
+            this.tabPage3.Size = new System.Drawing.Size(340, 495);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Automagical™ Analysis";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Location = new System.Drawing.Point(18, 73);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(305, 348);
+            this.panel1.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(15, 298);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(277, 42);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "This part involves lots of black magic...\r\nThe developer is summoning demons as w" +
+    "e speak...\r\nSo please be patient, magic will be here soon.";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox1
             // 
@@ -552,19 +583,21 @@
             // 
             // lvPreview
             // 
+            this.lvPreview.AllowDrop = true;
             this.lvPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvPreview.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2,
             this.columnHeader3});
+            this.lvPreview.ContextMenuStrip = this.cmsPreviewList;
             this.lvPreview.FullRowSelect = true;
             this.lvPreview.GridLines = true;
             this.lvPreview.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvPreview.LargeImageList = this.lvPreviewState;
             this.lvPreview.Location = new System.Drawing.Point(3, 3);
             this.lvPreview.Name = "lvPreview";
-            this.lvPreview.Size = new System.Drawing.Size(393, 520);
+            this.lvPreview.Size = new System.Drawing.Size(392, 400);
             this.lvPreview.SmallImageList = this.lvPreviewState;
             this.lvPreview.TabIndex = 1;
             this.lvPreview.UseCompatibleStateImageBehavior = false;
@@ -589,39 +622,78 @@
             this.lvPreviewState.Images.SetKeyName(2, "Applied");
             this.lvPreviewState.Images.SetKeyName(3, "Error");
             // 
-            // label4
+            // cmsRuleList
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 298);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(277, 42);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "This part involves lots of black magic...\r\nThe developer is summoning demons as w" +
-    "e speak...\r\nSo please be patient, magic will be here soon.";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cmsRuleList.Name = "cmsRuleList";
+            this.cmsRuleList.Size = new System.Drawing.Size(61, 4);
             // 
-            // panel1
+            // cmsPreviewList
             // 
-            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(18, 73);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(305, 348);
-            this.panel1.TabIndex = 2;
+            this.cmsPreviewList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiPvAddFiles,
+            this.tsmiPvAddDirs,
+            this.toolStripMenuItem2,
+            this.tsmiPvRemSelection,
+            this.tsmiPvRemApplied,
+            this.toolStripMenuItem3,
+            this.tsmiPvExtractRule});
+            this.cmsPreviewList.Name = "cmsPreviewList";
+            this.cmsPreviewList.Size = new System.Drawing.Size(197, 148);
+            // 
+            // tsmiPvAddFiles
+            // 
+            this.tsmiPvAddFiles.Name = "tsmiPvAddFiles";
+            this.tsmiPvAddFiles.Size = new System.Drawing.Size(196, 22);
+            this.tsmiPvAddFiles.Text = "Add Files...";
+            // 
+            // tsmiPvAddDirs
+            // 
+            this.tsmiPvAddDirs.Name = "tsmiPvAddDirs";
+            this.tsmiPvAddDirs.Size = new System.Drawing.Size(196, 22);
+            this.tsmiPvAddDirs.Text = "Add Directories...";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(193, 6);
+            // 
+            // tsmiPvRemSelection
+            // 
+            this.tsmiPvRemSelection.Enabled = false;
+            this.tsmiPvRemSelection.Name = "tsmiPvRemSelection";
+            this.tsmiPvRemSelection.Size = new System.Drawing.Size(196, 22);
+            this.tsmiPvRemSelection.Text = "Remove Selected Items";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(193, 6);
+            // 
+            // tsmiPvExtractRule
+            // 
+            this.tsmiPvExtractRule.Enabled = false;
+            this.tsmiPvExtractRule.Name = "tsmiPvExtractRule";
+            this.tsmiPvExtractRule.Size = new System.Drawing.Size(196, 22);
+            this.tsmiPvExtractRule.Text = "Extract to Rule...";
+            // 
+            // tsmiPvRemApplied
+            // 
+            this.tsmiPvRemApplied.Name = "tsmiPvRemApplied";
+            this.tsmiPvRemApplied.Size = new System.Drawing.Size(196, 22);
+            this.tsmiPvRemApplied.Text = "Remove Applied Items";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 441);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.MinimumSize = new System.Drawing.Size(800, 480);
             this.Name = "MainForm";
             this.Text = " RenEx";
             this.menuStrip1.ResumeLayout(false);
@@ -633,6 +705,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -643,8 +717,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.optNudValLenMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.optNudValLenMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.optNudMaxExt)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.cmsPreviewList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -697,6 +770,15 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ContextMenuStrip cmsRuleList;
+        private System.Windows.Forms.ContextMenuStrip cmsPreviewList;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPvAddFiles;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPvAddDirs;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPvRemSelection;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPvExtractRule;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPvRemApplied;
     }
 }
 
