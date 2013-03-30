@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenEx", "RenEx\RenEx.csproj", "{6BEA69BD-42F6-4241-BF09-907B99ED9534}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenEx.Sandbox", "RenEx.Sandbox\RenEx.Sandbox.csproj", "{8487D337-19C8-497C-9DE3-8BEF277F0621}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BEA69BD-42F6-4241-BF09-907B99ED9534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BEA69BD-42F6-4241-BF09-907B99ED9534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BEA69BD-42F6-4241-BF09-907B99ED9534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BEA69BD-42F6-4241-BF09-907B99ED9534}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8487D337-19C8-497C-9DE3-8BEF277F0621}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8487D337-19C8-497C-9DE3-8BEF277F0621}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8487D337-19C8-497C-9DE3-8BEF277F0621}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8487D337-19C8-497C-9DE3-8BEF277F0621}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
