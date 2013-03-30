@@ -46,9 +46,17 @@ namespace RenEx
                     tsmiFillPathInPrev.Checked = !tsmiFillPathInPrev.Checked;
                     UpdatePreview();
                 };
+            tsmiClearAll.Click += (@s, e) =>
+                {
+                    Files.Clear();
+                    NameRules.Clear();
+                    ExtensionRules.Clear();
+                    DirectoryRules.Clear();
 
+                    UpdateUI();
+                };
             // UI Maintenance
-            
+
 
         }
 
@@ -71,7 +79,7 @@ namespace RenEx
         public List<RenamingRule> NameRules { get; private set; }
         public List<RenamingRule> ExtensionRules { get; private set; }
 
-        public KeyValuePair<String, String>[] RenameResult { get; private set; } 
+        public Dictionary<String, String> RenameResult { get; private set; } 
 
 
         private void AddFiles(IEnumerable<String> fileNames)
@@ -139,13 +147,10 @@ namespace RenEx
                 FileNameDescriptor destination = TransformSingle(original);
 
                 // Fetch results if available
-                KeyValuePair<String, String>? result = null;
-                if (RenameResult != null)
-                    result = RenameResult.FirstOrDefault(
-                        t => StringComparer.InvariantCultureIgnoreCase.Equals(t.Key, original.ToString()));
 
                 // Skip file if it is already applied
-                if (result.HasValue && result.Value.Value == null) continue;
+                if (RenameResult != null && RenameResult.ContainsKey(original.ToString()) && RenameResult[original.ToString()] == null)
+                    continue;
 
                 // Add file if it is modified by a rule
                 if (!StringComparer.InvariantCultureIgnoreCase.Equals(original.ToString(), destination.ToString()))
@@ -156,7 +161,8 @@ namespace RenEx
             ProcessingDialog dlg = new ProcessingDialog(renaming.ToArray());
             dlg.ShowDialog();
 
-            RenameResult = dlg.RenameResult;
+            if (RenameResult == null) RenameResult = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+            foreach (var v in dlg.RenameResult) RenameResult[v.Key] = v.Value;
             UpdatePreview();
         }
 
@@ -255,6 +261,14 @@ namespace RenEx
 
 
                 };
+            tsmiPvRemApplied.Click += (@s, e) =>
+                {
+                    List<String> items = new List<string>();
+                    items.AddRange(from f in Files where RenameResult.ContainsKey(f) && RenameResult[f] == null select f);
+                    foreach (var v in items) Files.Remove(v);
+                    RenameResult.Clear();
+                    UpdatePreview();
+                };
 
             // RUN RENAMING
             renBtnRunRename.Click += (@s, a) => ApplyRenaming();
@@ -298,16 +312,11 @@ namespace RenEx
                 ListViewItem lvi = new ListViewItem(FileDescriptorToString(f));
                 FileNameDescriptor preview = TransformSingle(f);
 
-                // Fetch results if available
-                KeyValuePair<String, String>? result = null;
-                if (RenameResult != null)
-                    result = RenameResult.FirstOrDefault(
-                        t => StringComparer.InvariantCultureIgnoreCase.Equals(t.Key, f.ToString()));
 
-
-                if (result.HasValue)
+                if (RenameResult != null && RenameResult.ContainsKey(f.ToString()))
                 {
-                    if (result.Value.Value == null)
+                    String result = RenameResult[f.ToString()];
+                    if (result == null)
                     {
                         // Successfully applied
                         lvi.ImageKey = "Applied";
@@ -317,7 +326,7 @@ namespace RenEx
                     {
                         // Applied with errors
                         lvi.ImageKey = "Error";
-                        lvi.SubItems.Add("Error: " + result.Value.Value);
+                        lvi.SubItems.Add("Error: " + result);
                     }
                 }
                 else if (f.Equals(preview))
@@ -351,7 +360,6 @@ namespace RenEx
             UpdatePreview();
         }
        
-
         private String FileDescriptorToString(FileNameDescriptor f)
         {
             String s = f.FileName;

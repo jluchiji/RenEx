@@ -37,6 +37,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAddFiles = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAddDir = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiClearAll = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFillPathInPrev = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowExtInPrev = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,16 +79,16 @@
             this.lvPreview = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lvPreviewState = new System.Windows.Forms.ImageList(this.components);
-            this.cmsRuleList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cmsPreviewList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiPvAddFiles = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiPvAddDirs = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiPvRemSelection = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPvRemApplied = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiPvExtractRule = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiPvRemApplied = new System.Windows.Forms.ToolStripMenuItem();
+            this.lvPreviewState = new System.Windows.Forms.ImageList(this.components);
+            this.cmsRuleList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -124,7 +126,9 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiAddFiles,
-            this.tsmiAddDir});
+            this.tsmiAddDir,
+            this.toolStripMenuItem4,
+            this.tsmiClearAll});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -140,6 +144,18 @@
             this.tsmiAddDir.Name = "tsmiAddDir";
             this.tsmiAddDir.Size = new System.Drawing.Size(164, 22);
             this.tsmiAddDir.Text = "Add Directories...";
+            this.tsmiAddDir.Visible = false;
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(161, 6);
+            // 
+            // tsmiClearAll
+            // 
+            this.tsmiClearAll.Name = "tsmiClearAll";
+            this.tsmiClearAll.Size = new System.Drawing.Size(164, 22);
+            this.tsmiClearAll.Text = "Clear All";
             // 
             // toolStripMenuItem1
             // 
@@ -195,7 +211,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.lvPreview);
             this.splitContainer1.Panel2MinSize = 350;
-            this.splitContainer1.Size = new System.Drawing.Size(784, 417);
+            this.splitContainer1.Size = new System.Drawing.Size(784, 457);
             this.splitContainer1.SplitterDistance = 366;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
@@ -211,7 +227,7 @@
             this.tabControl1.Location = new System.Drawing.Point(14, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(348, 401);
+            this.tabControl1.Size = new System.Drawing.Size(348, 441);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -223,7 +239,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 23);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(340, 374);
+            this.tabPage1.Size = new System.Drawing.Size(340, 414);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Rules";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -232,7 +248,7 @@
             // 
             this.renBtnRemoveRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnRemoveRule.Image = global::RenEx.Properties.Resources.Remove16;
-            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 344);
+            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 385);
             this.renBtnRemoveRule.Name = "renBtnRemoveRule";
             this.renBtnRemoveRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnRemoveRule.TabIndex = 3;
@@ -244,7 +260,7 @@
             this.renBtnRunRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.renBtnRunRename.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.renBtnRunRename.Image = global::RenEx.Properties.Resources.Save16;
-            this.renBtnRunRename.Location = new System.Drawing.Point(245, 344);
+            this.renBtnRunRename.Location = new System.Drawing.Point(245, 385);
             this.renBtnRunRename.Name = "renBtnRunRename";
             this.renBtnRunRename.Size = new System.Drawing.Size(87, 25);
             this.renBtnRunRename.TabIndex = 2;
@@ -256,7 +272,7 @@
             // 
             this.renBtnAddRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnAddRule.Image = global::RenEx.Properties.Resources.Add16;
-            this.renBtnAddRule.Location = new System.Drawing.Point(7, 344);
+            this.renBtnAddRule.Location = new System.Drawing.Point(7, 385);
             this.renBtnAddRule.Name = "renBtnAddRule";
             this.renBtnAddRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnAddRule.TabIndex = 1;
@@ -287,7 +303,7 @@
             this.lvRules.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvRules.Location = new System.Drawing.Point(3, 3);
             this.lvRules.Name = "lvRules";
-            this.lvRules.Size = new System.Drawing.Size(334, 334);
+            this.lvRules.Size = new System.Drawing.Size(334, 375);
             this.lvRules.TabIndex = 0;
             this.lvRules.UseCompatibleStateImageBehavior = false;
             this.lvRules.View = System.Windows.Forms.View.Details;
@@ -308,7 +324,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(340, 495);
+            this.tabPage3.Size = new System.Drawing.Size(340, 415);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Automagical™ Analysis";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -318,7 +334,7 @@
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(18, 73);
+            this.panel1.Location = new System.Drawing.Point(18, 33);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(305, 348);
             this.panel1.TabIndex = 2;
@@ -353,7 +369,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(340, 495);
+            this.tabPage2.Size = new System.Drawing.Size(340, 415);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Options";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -362,7 +378,7 @@
             // 
             this.optBtnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.optBtnApply.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.optBtnApply.Location = new System.Drawing.Point(245, 462);
+            this.optBtnApply.Location = new System.Drawing.Point(245, 382);
             this.optBtnApply.Name = "optBtnApply";
             this.optBtnApply.Size = new System.Drawing.Size(87, 25);
             this.optBtnApply.TabIndex = 3;
@@ -597,7 +613,7 @@
             this.lvPreview.LargeImageList = this.lvPreviewState;
             this.lvPreview.Location = new System.Drawing.Point(3, 3);
             this.lvPreview.Name = "lvPreview";
-            this.lvPreview.Size = new System.Drawing.Size(392, 400);
+            this.lvPreview.Size = new System.Drawing.Size(391, 440);
             this.lvPreview.SmallImageList = this.lvPreviewState;
             this.lvPreview.TabIndex = 1;
             this.lvPreview.UseCompatibleStateImageBehavior = false;
@@ -613,20 +629,6 @@
             this.columnHeader3.Text = "New Name";
             this.columnHeader3.Width = 183;
             // 
-            // lvPreviewState
-            // 
-            this.lvPreviewState.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("lvPreviewState.ImageStream")));
-            this.lvPreviewState.TransparentColor = System.Drawing.Color.Transparent;
-            this.lvPreviewState.Images.SetKeyName(0, "OK");
-            this.lvPreviewState.Images.SetKeyName(1, "Warning");
-            this.lvPreviewState.Images.SetKeyName(2, "Applied");
-            this.lvPreviewState.Images.SetKeyName(3, "Error");
-            // 
-            // cmsRuleList
-            // 
-            this.cmsRuleList.Name = "cmsRuleList";
-            this.cmsRuleList.Size = new System.Drawing.Size(61, 4);
-            // 
             // cmsPreviewList
             // 
             this.cmsPreviewList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -638,7 +640,7 @@
             this.toolStripMenuItem3,
             this.tsmiPvExtractRule});
             this.cmsPreviewList.Name = "cmsPreviewList";
-            this.cmsPreviewList.Size = new System.Drawing.Size(197, 148);
+            this.cmsPreviewList.Size = new System.Drawing.Size(197, 126);
             // 
             // tsmiPvAddFiles
             // 
@@ -651,6 +653,7 @@
             this.tsmiPvAddDirs.Name = "tsmiPvAddDirs";
             this.tsmiPvAddDirs.Size = new System.Drawing.Size(196, 22);
             this.tsmiPvAddDirs.Text = "Add Directories...";
+            this.tsmiPvAddDirs.Visible = false;
             // 
             // toolStripMenuItem2
             // 
@@ -664,6 +667,12 @@
             this.tsmiPvRemSelection.Size = new System.Drawing.Size(196, 22);
             this.tsmiPvRemSelection.Text = "Remove Selected Items";
             // 
+            // tsmiPvRemApplied
+            // 
+            this.tsmiPvRemApplied.Name = "tsmiPvRemApplied";
+            this.tsmiPvRemApplied.Size = new System.Drawing.Size(196, 22);
+            this.tsmiPvRemApplied.Text = "Remove Applied Items";
+            // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
@@ -676,24 +685,33 @@
             this.tsmiPvExtractRule.Size = new System.Drawing.Size(196, 22);
             this.tsmiPvExtractRule.Text = "Extract to Rule...";
             // 
-            // tsmiPvRemApplied
+            // lvPreviewState
             // 
-            this.tsmiPvRemApplied.Name = "tsmiPvRemApplied";
-            this.tsmiPvRemApplied.Size = new System.Drawing.Size(196, 22);
-            this.tsmiPvRemApplied.Text = "Remove Applied Items";
+            this.lvPreviewState.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("lvPreviewState.ImageStream")));
+            this.lvPreviewState.TransparentColor = System.Drawing.Color.Transparent;
+            this.lvPreviewState.Images.SetKeyName(0, "OK");
+            this.lvPreviewState.Images.SetKeyName(1, "Warning");
+            this.lvPreviewState.Images.SetKeyName(2, "Applied");
+            this.lvPreviewState.Images.SetKeyName(3, "Error");
+            // 
+            // cmsRuleList
+            // 
+            this.cmsRuleList.Enabled = false;
+            this.cmsRuleList.Name = "cmsRuleList";
+            this.cmsRuleList.Size = new System.Drawing.Size(153, 26);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(784, 441);
+            this.ClientSize = new System.Drawing.Size(784, 481);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(800, 480);
+            this.MinimumSize = new System.Drawing.Size(800, 520);
             this.Name = "MainForm";
             this.Text = " RenEx";
             this.menuStrip1.ResumeLayout(false);
@@ -779,6 +797,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem tsmiPvExtractRule;
         private System.Windows.Forms.ToolStripMenuItem tsmiPvRemApplied;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem tsmiClearAll;
     }
 }
 
