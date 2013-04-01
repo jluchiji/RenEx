@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Name Rules", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Extension Rules", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Directory Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Name Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Extension Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("Directory Rules", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -290,16 +290,16 @@
             this.columnHeader1});
             this.lvRules.FullRowSelect = true;
             this.lvRules.GridLines = true;
-            listViewGroup1.Header = "Name Rules";
-            listViewGroup1.Name = "lvgName";
-            listViewGroup2.Header = "Extension Rules";
-            listViewGroup2.Name = "lvgExt";
-            listViewGroup3.Header = "Directory Rules";
-            listViewGroup3.Name = "lvgDir";
+            listViewGroup4.Header = "Name Rules";
+            listViewGroup4.Name = "lvgName";
+            listViewGroup5.Header = "Extension Rules";
+            listViewGroup5.Name = "lvgExt";
+            listViewGroup6.Header = "Directory Rules";
+            listViewGroup6.Name = "lvgDir";
             this.lvRules.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3});
+            listViewGroup4,
+            listViewGroup5,
+            listViewGroup6});
             this.lvRules.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvRules.Location = new System.Drawing.Point(3, 3);
             this.lvRules.Name = "lvRules";
@@ -321,10 +321,10 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.panel1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 23);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(340, 415);
+            this.tabPage3.Size = new System.Drawing.Size(340, 414);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Automagical™ Analysis";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -366,10 +366,10 @@
             this.tabPage2.Controls.Add(this.optBtnApply);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 23);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(340, 415);
+            this.tabPage2.Size = new System.Drawing.Size(340, 414);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Options";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -378,7 +378,7 @@
             // 
             this.optBtnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.optBtnApply.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.optBtnApply.Location = new System.Drawing.Point(245, 382);
+            this.optBtnApply.Location = new System.Drawing.Point(245, 381);
             this.optBtnApply.Name = "optBtnApply";
             this.optBtnApply.Size = new System.Drawing.Size(87, 25);
             this.optBtnApply.TabIndex = 3;
@@ -698,7 +698,7 @@
             // 
             this.cmsRuleList.Enabled = false;
             this.cmsRuleList.Name = "cmsRuleList";
-            this.cmsRuleList.Size = new System.Drawing.Size(153, 26);
+            this.cmsRuleList.Size = new System.Drawing.Size(61, 4);
             // 
             // MainForm
             // 

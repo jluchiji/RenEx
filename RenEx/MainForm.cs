@@ -3,18 +3,34 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using libWyvernzora.IO;
+using System.Xml;
 
 namespace RenEx
 {
     public partial class MainForm : Form
     {
+        private const String CONFIG_FILE = "renex.cfg";
+
         public MainForm()
         {
+            // Load Configuration
+            String configPath = Path.Combine(Application.StartupPath, CONFIG_FILE);
+            if (!File.Exists(configPath))
+            {
+                var cfg = Configuration.Instance; // Force creation of a new instance
+                using (var xw = XmlWriter.Create(configPath, new XmlWriterSettings() {Indent = true}))
+                {
+                    ConfigFileLoader.SaveConfiguration(cfg, xw);
+                }
+            } else 
+                Configuration.LoadConfiguration(configPath);
+
             // Initialize session stuff
             DirectoryRules = new List<RenamingRule>();
             NameRules = new List<RenamingRule>();
@@ -98,7 +114,7 @@ namespace RenEx
                 // Run Name Rules
                 foreach (RenamingRule rule in NameRules.Where(r => r.Active))
                 {
-                    Match match = Regex.Match(f.FileName, rule.RegularExpression);
+                    Match match = Regex.Match(f.FileName, rule.RegularExpression, RegexOptions.IgnoreCase);
                     if (!match.Success) continue;
 
                     fds.FileName = match.Result(rule.ReplacementExpression);
@@ -108,7 +124,7 @@ namespace RenEx
                 // Run Extension Rules
                 foreach (RenamingRule rule in ExtensionRules.Where(r => r.Active))
                 {
-                    Match match = Regex.Match(f.Extensions, rule.RegularExpression);
+                    Match match = Regex.Match(f.Extensions, rule.RegularExpression, RegexOptions.IgnoreCase);
                     if (!match.Success) continue;
 
                     fds.Extensions = match.Result(rule.ReplacementExpression);
@@ -118,7 +134,7 @@ namespace RenEx
                 // Run Directory Rules
                 foreach (RenamingRule rule in DirectoryRules.Where(r => r.Active))
                 {
-                    Match match = Regex.Match(f.Directory, rule.RegularExpression);
+                    Match match = Regex.Match(f.Directory, rule.RegularExpression, RegexOptions.IgnoreCase);
                     if (!match.Success) continue;
 
                     fds.Directory = match.Result(rule.ReplacementExpression);
@@ -191,6 +207,27 @@ namespace RenEx
                 lvPreview.Columns[0].Width = width;
                 lvPreview.Columns[1].Width = width;
             };
+            lvPreview.KeyDown += (@s, e) =>
+                {
+                    if (e.KeyCode == Keys.A && e.Modifiers == Keys.Control)
+                    {
+                        foreach (ListViewItem i in lvPreview.Items)
+                            i.Selected = true;
+                    }
+                    else if (e.KeyCode == Keys.Delete)
+                    {
+                        ListViewItem[] items = new ListViewItem[lvPreview.SelectedItems.Count];
+                        lvPreview.SelectedItems.CopyTo(items, 0);
+
+                        foreach (FileNameDescriptor fds in items.Select(f => f.Tag).OfType<FileNameDescriptor>())
+                        {
+                            Files.RemoveAll(t => StringComparer.InvariantCultureIgnoreCase.Equals(fds.ToString(), t));
+                        }
+
+                        UpdatePreview();
+                    }
+                };
+            
 
             // Context Menus
             lvPreview.ItemSelectionChanged += (@s, e) =>
@@ -228,7 +265,7 @@ namespace RenEx
                     RenamingRule rule = new RenamingRule();
                     rule.Type = RenamingRule.RuleType.Name;
                     rule.RegularExpression = Regex.Escape(fds.FileName).Replace("\\ ", " ");
-                    rule.ReplacementExpression = String.Format("{0}{1}", PathEx.GetMainFileName(fds.Directory), "[${i}]");
+                    rule.ReplacementExpression = String.Format("{0}{1}", Path.GetFileNameWithoutExtension(fds.Directory), "[${i}]");
 
                     RuleEditorDialog dlg = new RuleEditorDialog(this);
                     dlg.Rule = rule;
