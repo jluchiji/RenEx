@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Name Rules", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Extension Rules", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("Directory Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Name Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Extension Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Directory Rules", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,7 +39,7 @@
             this.tsmiAddDir = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiClearAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiView = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFillPathInPrev = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowExtInPrev = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,6 +89,10 @@
             this.tsmiPvExtractRule = new System.Windows.Forms.ToolStripMenuItem();
             this.lvPreviewState = new System.Windows.Forms.ImageList(this.components);
             this.cmsRuleList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiExtSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -113,7 +117,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.toolStripMenuItem1,
+            this.tsmiView,
+            this.tsmiTools,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -157,14 +162,14 @@
             this.tsmiClearAll.Size = new System.Drawing.Size(164, 22);
             this.tsmiClearAll.Text = "Clear All";
             // 
-            // toolStripMenuItem1
+            // tsmiView
             // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiFillPathInPrev,
             this.tsmiShowExtInPrev});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
-            this.toolStripMenuItem1.Text = "View";
+            this.tsmiView.Name = "tsmiView";
+            this.tsmiView.Size = new System.Drawing.Size(44, 20);
+            this.tsmiView.Text = "View";
             // 
             // tsmiFillPathInPrev
             // 
@@ -248,7 +253,7 @@
             // 
             this.renBtnRemoveRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnRemoveRule.Image = global::RenEx.Properties.Resources.Remove16;
-            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 385);
+            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 386);
             this.renBtnRemoveRule.Name = "renBtnRemoveRule";
             this.renBtnRemoveRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnRemoveRule.TabIndex = 3;
@@ -260,7 +265,7 @@
             this.renBtnRunRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.renBtnRunRename.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.renBtnRunRename.Image = global::RenEx.Properties.Resources.Save16;
-            this.renBtnRunRename.Location = new System.Drawing.Point(245, 385);
+            this.renBtnRunRename.Location = new System.Drawing.Point(245, 386);
             this.renBtnRunRename.Name = "renBtnRunRename";
             this.renBtnRunRename.Size = new System.Drawing.Size(87, 25);
             this.renBtnRunRename.TabIndex = 2;
@@ -272,7 +277,7 @@
             // 
             this.renBtnAddRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnAddRule.Image = global::RenEx.Properties.Resources.Add16;
-            this.renBtnAddRule.Location = new System.Drawing.Point(7, 385);
+            this.renBtnAddRule.Location = new System.Drawing.Point(7, 386);
             this.renBtnAddRule.Name = "renBtnAddRule";
             this.renBtnAddRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnAddRule.TabIndex = 1;
@@ -290,20 +295,20 @@
             this.columnHeader1});
             this.lvRules.FullRowSelect = true;
             this.lvRules.GridLines = true;
-            listViewGroup4.Header = "Name Rules";
-            listViewGroup4.Name = "lvgName";
-            listViewGroup5.Header = "Extension Rules";
-            listViewGroup5.Name = "lvgExt";
-            listViewGroup6.Header = "Directory Rules";
-            listViewGroup6.Name = "lvgDir";
+            listViewGroup1.Header = "Name Rules";
+            listViewGroup1.Name = "lvgName";
+            listViewGroup2.Header = "Extension Rules";
+            listViewGroup2.Name = "lvgExt";
+            listViewGroup3.Header = "Directory Rules";
+            listViewGroup3.Name = "lvgDir";
             this.lvRules.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup4,
-            listViewGroup5,
-            listViewGroup6});
+            listViewGroup1,
+            listViewGroup2,
+            listViewGroup3});
             this.lvRules.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvRules.Location = new System.Drawing.Point(3, 3);
             this.lvRules.Name = "lvRules";
-            this.lvRules.Size = new System.Drawing.Size(334, 375);
+            this.lvRules.Size = new System.Drawing.Size(334, 376);
             this.lvRules.TabIndex = 0;
             this.lvRules.UseCompatibleStateImageBehavior = false;
             this.lvRules.View = System.Windows.Forms.View.Details;
@@ -321,10 +326,10 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.panel1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 23);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(340, 414);
+            this.tabPage3.Size = new System.Drawing.Size(340, 415);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Automagical™ Analysis";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -613,7 +618,7 @@
             this.lvPreview.LargeImageList = this.lvPreviewState;
             this.lvPreview.Location = new System.Drawing.Point(3, 3);
             this.lvPreview.Name = "lvPreview";
-            this.lvPreview.Size = new System.Drawing.Size(391, 440);
+            this.lvPreview.Size = new System.Drawing.Size(390, 440);
             this.lvPreview.SmallImageList = this.lvPreviewState;
             this.lvPreview.TabIndex = 1;
             this.lvPreview.UseCompatibleStateImageBehavior = false;
@@ -700,6 +705,33 @@
             this.cmsRuleList.Name = "cmsRuleList";
             this.cmsRuleList.Size = new System.Drawing.Size(61, 4);
             // 
+            // tsmiTools
+            // 
+            this.tsmiTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiExtSettings,
+            this.toolStripSeparator1,
+            this.tsmiOptions});
+            this.tsmiTools.Name = "tsmiTools";
+            this.tsmiTools.Size = new System.Drawing.Size(48, 20);
+            this.tsmiTools.Text = "Tools";
+            // 
+            // tsmiExtSettings
+            // 
+            this.tsmiExtSettings.Name = "tsmiExtSettings";
+            this.tsmiExtSettings.Size = new System.Drawing.Size(169, 22);
+            this.tsmiExtSettings.Text = "Extension Settings";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
+            // 
+            // tsmiOptions
+            // 
+            this.tsmiOptions.Name = "tsmiOptions";
+            this.tsmiOptions.Size = new System.Drawing.Size(169, 22);
+            this.tsmiOptions.Text = "Options...";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -754,7 +786,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ImageList lvPreviewState;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiView;
         private System.Windows.Forms.ToolStripMenuItem tsmiShowExtInPrev;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -799,6 +831,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiPvRemApplied;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem tsmiClearAll;
+        private System.Windows.Forms.ToolStripMenuItem tsmiTools;
+        private System.Windows.Forms.ToolStripMenuItem tsmiExtSettings;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOptions;
     }
 }
 
