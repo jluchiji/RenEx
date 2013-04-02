@@ -13,12 +13,13 @@ namespace RenEx
 {
     public partial class OptionsDialog : Form
     {
-        public OptionsDialog(Int32 mode = -1, String arg = null)
+        public OptionsDialog(Int32 mode = -1, Object arg = null)
         {
             // WinForms default call
             InitializeComponent();
 
             // Attach Handlers
+            btnOK.Click += (@s, e) => this.Close();
             Closing += (@s, e) =>
                 {
                     // Apply all pending changes
@@ -32,6 +33,7 @@ namespace RenEx
 
             // Populate UI
             UpdateExtConfigList(Configuration.Instance.CurrentExtensionSettings);
+            UpdateRuleTemplateList();
             //ShowExtensionSetting(Configuration.Instance.GetCurrentExtensionSettings());
 
             if (mode >= 0)
@@ -161,6 +163,7 @@ namespace RenEx
 
         private Boolean ApplyExtConfig()
         {
+            error.Clear();
             Configuration.ExtensionConfig oldc = (Configuration.ExtensionConfig) lbExtPresets.SelectedItem;
             Configuration.ExtensionConfig newc = GetConfigurationFromUi();
 
@@ -194,12 +197,146 @@ namespace RenEx
 
         public void AttachRuleTemplateHandlers()
         {
-            
+            // Item Selection
+            lbRlt.SelectedValueChanged += (@s, e) =>
+                {
+                    if (lbRlt.SelectedItem != null)
+                        ShowRule((RenamingRule) lbRlt.SelectedItem);
+                    else
+                    {
+                        txtRltName.Clear();
+                        txtRltRegex.Clear();
+                        txtRltRep.Clear();
+                        radRltName.Checked = true;
+                    }
+
+                    gbRltOptions.Enabled = lbRlt.SelectedItem != null;
+                };
+
+            // Apply changes
+            txtRltName.Leave += (@s, e) => ApplyRltChanges();
+            radRltDir.Leave += (@s, e) => ApplyRltChanges();
+            radRltExt.Leave += (@s, e) => ApplyRltChanges();
+            radRltName.Leave += (@s, e) => ApplyRltChanges();
+            txtRltRegex.Leave += (@s, e) => ApplyRltChanges();
+            txtRltRep.Leave += (@s, e) => ApplyRltChanges();
+
+            // Add/Remove
+            btnRltAdd.Click += (@s, e) =>
+                {
+                    String nname = "New Rule #" +
+                            libWyvernzora.Core.DirectIntConv.ToHexString(Configuration.Random.Next(), 8)
+                            .Substring(2);
+
+                    RenamingRule rule = new RenamingRule() {Name = nname, Type = RenamingRule.RuleType.Name, RegularExpression = "", ReplacementExpression = ""};
+                    Configuration.Instance.Rules.Add(nname, rule);
+                    UpdateRuleTemplateList(nname);
+                    txtRltName.Select();
+                    txtRltName.SelectAll();
+                };
+            btnRltRemove.Click += (@s, e) =>
+            {
+                RenamingRule rule = lbRlt.SelectedItem as RenamingRule;
+                if (rule == null) return;
+
+                Configuration.Instance.Rules.Remove(rule.Name);
+                UpdateRuleTemplateList();
+            };
+        }
+
+        private void ShowRule(RenamingRule rule)
+        {
+            txtRltName.Text = rule.Name;
+            switch (rule.Type)
+            {
+                case RenamingRule.RuleType.Name:
+                    radRltName.Checked = true;
+                    break;
+                case RenamingRule.RuleType.Extension:
+                    radRltExt.Checked = true;
+                    break;
+                default:
+                    radRltDir.Checked = true;
+                    break;
+            }
+
+            txtRltRegex.Text = rule.RegularExpression;
+            txtRltRep.Text = rule.ReplacementExpression;
         }
 
         private void UpdateRuleTemplateList(String selection = null)
         {
-            
+            // Action Lock to make sure BeginUpdate and EndUpdate are both called =w=
+            using (new ActionLock(lbRlt.BeginUpdate, lbRlt.EndUpdate))
+            {
+                lbRlt.Items.Clear();
+                foreach (var v in Configuration.Instance.Rules.Values)
+                {
+                    lbRlt.Items.Add(v);
+                    if (Configuration.StringComparer.Equals(v.Name, selection))
+                        lbRlt.SelectedItem = v;
+                }
+            }
+
+            if (selection == null)
+                lbRlt.SelectedItem = null;
+
+            if (lbRlt.Items.Count == 0 || lbRlt.SelectedItem == null)
+            {
+                txtRltName.Clear();
+                txtRltRegex.Clear();
+                txtRltRep.Clear();
+                radRltName.Checked = true;
+                gbRltOptions.Enabled = false;
+            }
+        }
+
+        private Boolean ApplyRltChanges()
+        {
+            error.Clear();
+
+            RenamingRule oldr = (RenamingRule)lbRlt.SelectedItem;
+            RenamingRule newr = GetRuleFromUi();
+
+            // Validate Data
+            if (String.IsNullOrWhiteSpace(newr.Name))
+            {
+                error.SetError(txtRltName, "Rule name cannot be empty or all whitespaces!");
+                return true;
+            }
+
+            // Check duplicates
+            if (!Configuration.StringComparer.Equals(oldr.Name, newr.Name)
+                && Configuration.Instance.Rules.ContainsKey(newr.Name))
+            {
+                DialogResult dr = MessageBox.Show(
+                    "There is already a rule with exactly the same name.\nDo you want to overwrite it?",
+                    "Overwrite?!", MessageBoxButtons.YesNoCancel);
+                if (dr == DialogResult.No) return false;
+                else if (dr == DialogResult.Cancel) return true;
+            }
+
+            Configuration.Instance.Rules.Remove(oldr.Name);
+            Configuration.Instance.Rules.Add(newr.Name, newr);
+            UpdateRuleTemplateList(newr.Name);
+            return false;
+        }
+
+        private RenamingRule GetRuleFromUi()
+        {
+            RenamingRule rule = new RenamingRule
+                {
+                    Name = txtRltName.Text,
+                    RegularExpression = txtRltRegex.Text,
+                    ReplacementExpression = txtRltRep.Text,
+                    Type = radRltName.Checked
+                               ? RenamingRule.RuleType.Name
+                               : radRltExt.Checked
+                                     ? RenamingRule.RuleType.Extension
+                                     : RenamingRule.RuleType.Directory
+                };
+
+            return rule;
         }
 
         #endregion

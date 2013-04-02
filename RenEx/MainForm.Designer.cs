@@ -74,6 +74,11 @@
             this.tsmiPvExtractRule = new System.Windows.Forms.ToolStripMenuItem();
             this.lvPreviewState = new System.Windows.Forms.ImageList(this.components);
             this.cmsRuleList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiAddRule = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRemoveRules = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiAddFromTemplate = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAddToTemplates = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -85,6 +90,7 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.cmsPreviewList.SuspendLayout();
+            this.cmsRuleList.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -293,6 +299,7 @@
             this.lvRules.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader4,
             this.columnHeader1});
+            this.lvRules.ContextMenuStrip = this.cmsRuleList;
             this.lvRules.FullRowSelect = true;
             this.lvRules.GridLines = true;
             listViewGroup1.Header = "Name Rules";
@@ -464,9 +471,47 @@
             // 
             // cmsRuleList
             // 
-            this.cmsRuleList.Enabled = false;
+            this.cmsRuleList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiAddRule,
+            this.tsmiRemoveRules,
+            this.toolStripSeparator2,
+            this.tsmiAddFromTemplate,
+            this.tsmiAddToTemplates});
             this.cmsRuleList.Name = "cmsRuleList";
-            this.cmsRuleList.Size = new System.Drawing.Size(61, 4);
+            this.cmsRuleList.Size = new System.Drawing.Size(181, 120);
+            // 
+            // tsmiAddRule
+            // 
+            this.tsmiAddRule.Image = global::RenEx.Properties.Resources.Add16;
+            this.tsmiAddRule.Name = "tsmiAddRule";
+            this.tsmiAddRule.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAddRule.Text = "Add Rule";
+            // 
+            // tsmiRemoveRules
+            // 
+            this.tsmiRemoveRules.Enabled = false;
+            this.tsmiRemoveRules.Image = global::RenEx.Properties.Resources.Remove16;
+            this.tsmiRemoveRules.Name = "tsmiRemoveRules";
+            this.tsmiRemoveRules.Size = new System.Drawing.Size(180, 22);
+            this.tsmiRemoveRules.Text = "Remove Rule(s)";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // tsmiAddFromTemplate
+            // 
+            this.tsmiAddFromTemplate.Name = "tsmiAddFromTemplate";
+            this.tsmiAddFromTemplate.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAddFromTemplate.Text = "Add From Template";
+            // 
+            // tsmiAddToTemplates
+            // 
+            this.tsmiAddToTemplates.Enabled = false;
+            this.tsmiAddToTemplates.Name = "tsmiAddToTemplates";
+            this.tsmiAddToTemplates.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAddToTemplates.Text = "Add To Templates";
             // 
             // MainForm
             // 
@@ -481,6 +526,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(800, 520);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " RenEx";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -495,6 +541,7 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.cmsPreviewList.ResumeLayout(false);
+            this.cmsRuleList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -543,6 +590,11 @@
         private System.Windows.Forms.ToolStripMenuItem tsmiExtSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem tsmiOptions;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAddRule;
+        private System.Windows.Forms.ToolStripMenuItem tsmiRemoveRules;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAddFromTemplate;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAddToTemplates;
     }
 }
 

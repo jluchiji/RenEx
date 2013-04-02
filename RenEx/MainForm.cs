@@ -250,6 +250,60 @@ namespace RenEx
                     tsmiPvRemSelection.Enabled = count > 0;
                     tsmiPvExtractRule.Enabled = count == 1;
                 };
+            lvRules.ItemSelectionChanged += (@s, e) =>
+                {
+                    Int32 count = lvRules.SelectedItems.Count;
+
+                    tsmiRemoveRules.Enabled = count > 0;
+                    tsmiAddToTemplates.Enabled = count == 1;
+                };
+            tsmiAddRule.Click += (@s, e) =>
+                {
+                    RuleEditorDialog dlg = new RuleEditorDialog(this);
+                    if (dlg.ShowDialog() == DialogResult.OK)
+                    {
+                        RenamingRule rule = dlg.Rule;
+                        rule.Active = true;
+
+                        switch (rule.Type)
+                        {
+                            case RenamingRule.RuleType.Name:
+                                {
+                                    NameRules.Add(rule);
+                                }
+                                break;
+                            case RenamingRule.RuleType.Extension:
+                                {
+                                    ExtensionRules.Add(rule);
+                                }
+                                break;
+                            case RenamingRule.RuleType.Directory:
+                                {
+                                    DirectoryRules.Add(rule);
+                                }
+                                break;
+                        }
+
+                        UpdateUI();
+                    }
+                };
+            tsmiRemoveRules.Click += (@s, e) =>
+                {
+                    ListViewItem[] selection = new ListViewItem[lvRules.SelectedItems.Count];
+                    lvRules.SelectedItems.CopyTo(selection, 0);
+
+                    foreach (RenamingRule rule in selection.Select(v => v.Tag).OfType<RenamingRule>())
+                    {
+                        if (rule.Type == RenamingRule.RuleType.Name)
+                            NameRules.Remove(rule);
+                        else if (rule.Type == RenamingRule.RuleType.Extension)
+                            ExtensionRules.Remove(rule);
+                        else
+                            DirectoryRules.Remove(rule);
+                    }
+
+                    UpdateUI();
+                };
             tsmiPvAddFiles.Click += (@s, e) =>
                 {
                     OpenFileDialog dlg = new OpenFileDialog() { Multiselect = true };
