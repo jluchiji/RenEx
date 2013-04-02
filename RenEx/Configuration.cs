@@ -21,7 +21,26 @@ namespace RenEx
             public Int32 MaximumExtensions { get; set; }
 
             public IFileExtValidator Validator { get; set; }
+
+            public override string ToString()
+            {
+                return Name;
+            }
         }
+
+        #endregion
+
+        #region Global Stuff
+
+        static Configuration()
+        {
+            Random = new Random();
+        }
+
+        public static Random Random { get; private set; }
+
+        public static StringComparer StringComparer
+        { get { return StringComparer.CurrentCultureIgnoreCase; } }
 
         #endregion
 
@@ -47,11 +66,23 @@ namespace RenEx
         {
             ExtensionConfigs = new Dictionary<string, ExtensionConfig>(StringComparer.InvariantCultureIgnoreCase);
             ExtensionConfigs.Add("Default", ExtensionConfig.Default);
+            CurrentExtensionSettings = "Default";
 
             Rules = new Dictionary<string, RenamingRule>();
 
             RegexTemplates = new Dictionary<String, String>(StringComparer.InvariantCultureIgnoreCase);
         }
+
+        #region Current Settings
+
+        public String CurrentExtensionSettings { get; set; }
+
+        public ExtensionConfig GetCurrentExtensionSettings()
+        {
+            return ExtensionConfigs[CurrentExtensionSettings];
+        }
+
+        #endregion
 
         #region Extension Analysis
 

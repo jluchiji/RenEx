@@ -40,7 +40,7 @@ namespace RenEx
             InitializeComponent();
             UIEventHandlers();
             RenamingTabAttachEventHandlers();
-            OptionsTabAttachEventHandlers();
+
 
             // Main Menu Events
             tsmiAbout.Click += (@s, e) => (new AboutDialog()).ShowDialog();
@@ -71,23 +71,33 @@ namespace RenEx
 
                     UpdateUI();
                 };
+            tsmiOptions.Click += (@s, e) =>
+                {
+                    OptionsDialog dlg = new OptionsDialog();
+                    dlg.ShowDialog();
+                    UpdateUI();
+                };
             // UI Maintenance
 
-
+            UpdateUI();
         }
 
-        #region Session Data and Core Renaming Methods
+        #region Static Methods (Global to application)
 
-        public IFileExtValidator ExtensionValidator
+        public static void SaveConfiguration()
         {
-            get
+            // Load Configuration
+            String configPath = Path.Combine(Application.StartupPath, CONFIG_FILE);
+            var cfg = Configuration.Instance;
+            using (var xw = XmlWriter.Create(configPath, new XmlWriterSettings() {Indent = true}))
             {
-                if (optRadValidateLength.Checked)
-                    return new FileExtLengthValidator((Int32)optNudValLenMin.Value, (Int32)optNudValLenMax.Value);
-                else
-                    return new FileExtListValidator(from d in optTxtExtList.Text.Split(';') select d.Trim(' '));
+                ConfigFileLoader.SaveConfiguration(cfg, xw);
             }
         }
+
+        #endregion
+
+        #region Session Data and Core Renaming Methods
 
         public List<String> Files { get; private set; }
 
@@ -106,8 +116,11 @@ namespace RenEx
 
         private FileNameDescriptor TransformSingle(FileNameDescriptor f)
         {
+            Configuration.ExtensionConfig extConfig =
+                Configuration.Instance.ExtensionConfigs[Configuration.Instance.CurrentExtensionSettings];
+
             // Clone old one
-            FileNameDescriptor fds = new FileNameDescriptor(f.ToString(), (Int32)optNudMaxExt.Value, ExtensionValidator);
+            FileNameDescriptor fds = new FileNameDescriptor(f.ToString(), extConfig.MaximumExtensions, extConfig.Validator);
 
             try
             {
@@ -152,14 +165,14 @@ namespace RenEx
         private void ApplyRenaming()
         {
             // Get Parameters
-            Int32 maxExt = (Int32) optNudMaxExt.Value;
-            IFileExtValidator validator = ExtensionValidator;
+            Configuration.ExtensionConfig extConfig =
+            Configuration.Instance.ExtensionConfigs[Configuration.Instance.CurrentExtensionSettings];
 
             // Build Renaming List
             var renaming = new List<KeyValuePair<FileNameDescriptor, FileNameDescriptor>>();
             for (int i = 0; i < Files.Count; i++)
             {
-                FileNameDescriptor original = new FileNameDescriptor(Files[i], maxExt, validator);
+                FileNameDescriptor original = new FileNameDescriptor(Files[i], extConfig.MaximumExtensions, extConfig.Validator);
                 FileNameDescriptor destination = TransformSingle(original);
 
                 // Fetch results if available
@@ -342,9 +355,11 @@ namespace RenEx
             lvPreview.BeginUpdate();
             lvPreview.Items.Clear();
 
-            IFileExtValidator validator = ExtensionValidator;
-            
-            foreach (var f in (from s in Files select new FileNameDescriptor(s, (Int32)optNudMaxExt.Value, validator)))
+            Configuration.ExtensionConfig extConfig =
+                Configuration.Instance.ExtensionConfigs[Configuration.Instance.CurrentExtensionSettings];
+
+
+            foreach (var f in (from s in Files select new FileNameDescriptor(s, extConfig.MaximumExtensions, extConfig.Validator)))
             {
                 ListViewItem lvi = new ListViewItem(FileDescriptorToString(f));
                 FileNameDescriptor preview = TransformSingle(f);
@@ -391,10 +406,27 @@ namespace RenEx
                 lvPreview.EndUpdate();
         }
 
+        private void UpdateMenus()
+        {
+            // Update Extension Settings Menu
+            tsmiExtSettings.DropDownItems.Clear();
+            foreach (var v in Configuration.Instance.ExtensionConfigs)
+            {
+                ToolStripMenuItem tsmi = new ToolStripMenuItem(v.Key) {Tag = v.Value};
+                if (StringComparer.InvariantCultureIgnoreCase.Equals(v.Key,
+                                                                     Configuration.Instance.CurrentExtensionSettings))
+                    tsmi.Checked = true;
+                tsmi.Click += ExtensionSettingsMenuClick;
+                tsmiExtSettings.DropDownItems.Add(tsmi);
+            }
+
+        }
+
         private void UpdateUI()
         {
             UpdateRuleList();
             UpdatePreview();
+            UpdateMenus();
         }
        
         private String FileDescriptorToString(FileNameDescriptor f)
@@ -403,6 +435,23 @@ namespace RenEx
             if (tsmiShowExtInPrev.Checked) s += f.Extensions;
             if (tsmiFillPathInPrev.Checked) s = f.ToString();
             return s;
+        }
+
+
+        private void ExtensionSettingsMenuClick(Object sender, EventArgs e)
+        {
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            if (item == null) return;
+            Configuration.ExtensionConfig config = item.Tag as Configuration.ExtensionConfig;
+            if (config == null) return;
+
+            // Check the item while unchecking all others
+            foreach (ToolStripMenuItem v in tsmiExtSettings.DropDownItems)
+                v.Checked = v == item;
+
+            // Apply new preset
+            Configuration.Instance.CurrentExtensionSettings = config.Name;
+            UpdatePreview();
         }
 
         #endregion
@@ -469,23 +518,6 @@ namespace RenEx
                         UpdatePreview();
                     }
                 };
-        }
-
-        #endregion
-
-        #region Options Tab
-
-        private void OptionsTabAttachEventHandlers()
-        {
-            optRadValidateLength.CheckedChanged += (@s, e) =>
-                {
-                    optPnlValLenOptions.Enabled = optRadValidateLength.Checked;
-                };
-            optRadValidateList.CheckedChanged += (@s, e) =>
-                {
-                    optTxtExtList.Enabled = optRadValidateList.Checked;
-                };
-            optBtnApply.Click += (@s, a) => UpdatePreview();
         }
 
         #endregion

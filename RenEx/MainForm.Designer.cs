@@ -42,6 +42,10 @@
             this.tsmiView = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiFillPathInPrev = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiShowExtInPrev = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiExtSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -57,25 +61,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.optBtnApply = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.optTxtExtList = new System.Windows.Forms.TextBox();
-            this.optRadValidateList = new System.Windows.Forms.RadioButton();
-            this.optRadValidateLength = new System.Windows.Forms.RadioButton();
-            this.optPnlValLenOptions = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.optNudValLenMin = new System.Windows.Forms.NumericUpDown();
-            this.optNudValLenMax = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.optNudMaxExt = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.lvPreview = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -89,10 +74,6 @@
             this.tsmiPvExtractRule = new System.Windows.Forms.ToolStripMenuItem();
             this.lvPreviewState = new System.Windows.Forms.ImageList(this.components);
             this.cmsRuleList = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiTools = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiExtSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -103,13 +84,6 @@
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.optPnlValLenOptions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.optNudValLenMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.optNudValLenMax)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.optNudMaxExt)).BeginInit();
             this.cmsPreviewList.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -185,6 +159,33 @@
             this.tsmiShowExtInPrev.Size = new System.Drawing.Size(218, 22);
             this.tsmiShowExtInPrev.Text = "Show Extensions in Preview";
             // 
+            // tsmiTools
+            // 
+            this.tsmiTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiExtSettings,
+            this.toolStripSeparator1,
+            this.tsmiOptions});
+            this.tsmiTools.Name = "tsmiTools";
+            this.tsmiTools.Size = new System.Drawing.Size(48, 20);
+            this.tsmiTools.Text = "Tools";
+            // 
+            // tsmiExtSettings
+            // 
+            this.tsmiExtSettings.Name = "tsmiExtSettings";
+            this.tsmiExtSettings.Size = new System.Drawing.Size(169, 22);
+            this.tsmiExtSettings.Text = "Extension Settings";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
+            // 
+            // tsmiOptions
+            // 
+            this.tsmiOptions.Name = "tsmiOptions";
+            this.tsmiOptions.Size = new System.Drawing.Size(169, 22);
+            this.tsmiOptions.Text = "Options...";
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -228,7 +229,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(14, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -253,7 +253,7 @@
             // 
             this.renBtnRemoveRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnRemoveRule.Image = global::RenEx.Properties.Resources.Remove16;
-            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 386);
+            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 387);
             this.renBtnRemoveRule.Name = "renBtnRemoveRule";
             this.renBtnRemoveRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnRemoveRule.TabIndex = 3;
@@ -265,7 +265,7 @@
             this.renBtnRunRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.renBtnRunRename.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.renBtnRunRename.Image = global::RenEx.Properties.Resources.Save16;
-            this.renBtnRunRename.Location = new System.Drawing.Point(245, 386);
+            this.renBtnRunRename.Location = new System.Drawing.Point(245, 387);
             this.renBtnRunRename.Name = "renBtnRunRename";
             this.renBtnRunRename.Size = new System.Drawing.Size(87, 25);
             this.renBtnRunRename.TabIndex = 2;
@@ -277,7 +277,7 @@
             // 
             this.renBtnAddRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnAddRule.Image = global::RenEx.Properties.Resources.Add16;
-            this.renBtnAddRule.Location = new System.Drawing.Point(7, 386);
+            this.renBtnAddRule.Location = new System.Drawing.Point(7, 387);
             this.renBtnAddRule.Name = "renBtnAddRule";
             this.renBtnAddRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnAddRule.TabIndex = 1;
@@ -308,7 +308,7 @@
             this.lvRules.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvRules.Location = new System.Drawing.Point(3, 3);
             this.lvRules.Name = "lvRules";
-            this.lvRules.Size = new System.Drawing.Size(334, 376);
+            this.lvRules.Size = new System.Drawing.Size(334, 377);
             this.lvRules.TabIndex = 0;
             this.lvRules.UseCompatibleStateImageBehavior = false;
             this.lvRules.View = System.Windows.Forms.View.Details;
@@ -365,243 +365,6 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // tabPage2
-            // 
-            this.tabPage2.AutoScroll = true;
-            this.tabPage2.Controls.Add(this.optBtnApply);
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 23);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(340, 414);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Options";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // optBtnApply
-            // 
-            this.optBtnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.optBtnApply.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.optBtnApply.Location = new System.Drawing.Point(245, 381);
-            this.optBtnApply.Name = "optBtnApply";
-            this.optBtnApply.Size = new System.Drawing.Size(87, 25);
-            this.optBtnApply.TabIndex = 3;
-            this.optBtnApply.Text = "Apply";
-            this.optBtnApply.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.optBtnApply.UseVisualStyleBackColor = true;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Controls.Add(this.comboBox1);
-            this.groupBox3.Location = new System.Drawing.Point(7, 6);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(325, 55);
-            this.groupBox3.TabIndex = 1;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Configurations";
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Image = global::RenEx.Properties.Resources.Add16;
-            this.button2.Location = new System.Drawing.Point(260, 20);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(24, 23);
-            this.button2.TabIndex = 2;
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Image = global::RenEx.Properties.Resources.Remove16;
-            this.button1.Location = new System.Drawing.Point(291, 20);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(24, 23);
-            this.button1.TabIndex = 1;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(7, 20);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(245, 22);
-            this.comboBox1.TabIndex = 0;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.optTxtExtList);
-            this.groupBox2.Controls.Add(this.optRadValidateList);
-            this.groupBox2.Controls.Add(this.optRadValidateLength);
-            this.groupBox2.Controls.Add(this.optPnlValLenOptions);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.optNudMaxExt);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(7, 68);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(325, 304);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "File Extension Analysis";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 201);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(249, 14);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Separate extensions using \";\", case insensitive.";
-            // 
-            // optTxtExtList
-            // 
-            this.optTxtExtList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.optTxtExtList.Enabled = false;
-            this.optTxtExtList.Location = new System.Drawing.Point(7, 219);
-            this.optTxtExtList.Multiline = true;
-            this.optTxtExtList.Name = "optTxtExtList";
-            this.optTxtExtList.Size = new System.Drawing.Size(310, 78);
-            this.optTxtExtList.TabIndex = 13;
-            // 
-            // optRadValidateList
-            // 
-            this.optRadValidateList.AutoSize = true;
-            this.optRadValidateList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.optRadValidateList.Location = new System.Drawing.Point(7, 177);
-            this.optRadValidateList.Name = "optRadValidateList";
-            this.optRadValidateList.Size = new System.Drawing.Size(205, 17);
-            this.optRadValidateList.TabIndex = 12;
-            this.optRadValidateList.Text = "Only allow following extensions:\r\n";
-            this.optRadValidateList.UseVisualStyleBackColor = true;
-            // 
-            // optRadValidateLength
-            // 
-            this.optRadValidateLength.AutoSize = true;
-            this.optRadValidateLength.Checked = true;
-            this.optRadValidateLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.optRadValidateLength.Location = new System.Drawing.Point(7, 75);
-            this.optRadValidateLength.Name = "optRadValidateLength";
-            this.optRadValidateLength.Size = new System.Drawing.Size(220, 17);
-            this.optRadValidateLength.TabIndex = 11;
-            this.optRadValidateLength.TabStop = true;
-            this.optRadValidateLength.Text = "Validate extensions by their length";
-            this.optRadValidateLength.UseVisualStyleBackColor = true;
-            // 
-            // optPnlValLenOptions
-            // 
-            this.optPnlValLenOptions.Controls.Add(this.label3);
-            this.optPnlValLenOptions.Controls.Add(this.optNudValLenMin);
-            this.optPnlValLenOptions.Controls.Add(this.optNudValLenMax);
-            this.optPnlValLenOptions.Controls.Add(this.label5);
-            this.optPnlValLenOptions.Location = new System.Drawing.Point(7, 99);
-            this.optPnlValLenOptions.Name = "optPnlValLenOptions";
-            this.optPnlValLenOptions.Size = new System.Drawing.Size(312, 58);
-            this.optPnlValLenOptions.TabIndex = 10;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(203, 14);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Only consider extensions longer than";
-            // 
-            // optNudValLenMin
-            // 
-            this.optNudValLenMin.Location = new System.Drawing.Point(216, 1);
-            this.optNudValLenMin.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.optNudValLenMin.Name = "optNudValLenMin";
-            this.optNudValLenMin.Size = new System.Drawing.Size(51, 21);
-            this.optNudValLenMin.TabIndex = 4;
-            // 
-            // optNudValLenMax
-            // 
-            this.optNudValLenMax.Location = new System.Drawing.Point(216, 32);
-            this.optNudValLenMax.Maximum = new decimal(new int[] {
-            11,
-            0,
-            0,
-            0});
-            this.optNudValLenMax.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.optNudValLenMax.Name = "optNudValLenMax";
-            this.optNudValLenMax.Size = new System.Drawing.Size(51, 21);
-            this.optNudValLenMax.TabIndex = 7;
-            this.optNudValLenMax.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(116, 34);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(94, 14);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "and shorter than";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(231, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 14);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "extension(s).";
-            // 
-            // optNudMaxExt
-            // 
-            this.optNudMaxExt.Location = new System.Drawing.Point(166, 33);
-            this.optNudMaxExt.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.optNudMaxExt.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.optNudMaxExt.Name = "optNudMaxExt";
-            this.optNudMaxExt.Size = new System.Drawing.Size(58, 21);
-            this.optNudMaxExt.TabIndex = 1;
-            this.optNudMaxExt.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 14);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Only consider maximum of";
-            // 
             // lvPreview
             // 
             this.lvPreview.AllowDrop = true;
@@ -618,7 +381,7 @@
             this.lvPreview.LargeImageList = this.lvPreviewState;
             this.lvPreview.Location = new System.Drawing.Point(3, 3);
             this.lvPreview.Name = "lvPreview";
-            this.lvPreview.Size = new System.Drawing.Size(390, 440);
+            this.lvPreview.Size = new System.Drawing.Size(389, 440);
             this.lvPreview.SmallImageList = this.lvPreviewState;
             this.lvPreview.TabIndex = 1;
             this.lvPreview.UseCompatibleStateImageBehavior = false;
@@ -705,33 +468,6 @@
             this.cmsRuleList.Name = "cmsRuleList";
             this.cmsRuleList.Size = new System.Drawing.Size(61, 4);
             // 
-            // tsmiTools
-            // 
-            this.tsmiTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiExtSettings,
-            this.toolStripSeparator1,
-            this.tsmiOptions});
-            this.tsmiTools.Name = "tsmiTools";
-            this.tsmiTools.Size = new System.Drawing.Size(48, 20);
-            this.tsmiTools.Text = "Tools";
-            // 
-            // tsmiExtSettings
-            // 
-            this.tsmiExtSettings.Name = "tsmiExtSettings";
-            this.tsmiExtSettings.Size = new System.Drawing.Size(169, 22);
-            this.tsmiExtSettings.Text = "Extension Settings";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
-            // 
-            // tsmiOptions
-            // 
-            this.tsmiOptions.Name = "tsmiOptions";
-            this.tsmiOptions.Size = new System.Drawing.Size(169, 22);
-            this.tsmiOptions.Text = "Options...";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -758,15 +494,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.optPnlValLenOptions.ResumeLayout(false);
-            this.optPnlValLenOptions.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.optNudValLenMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.optNudValLenMax)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.optNudMaxExt)).EndInit();
             this.cmsPreviewList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -797,25 +524,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button optBtnApply;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox optTxtExtList;
-        private System.Windows.Forms.RadioButton optRadValidateList;
-        private System.Windows.Forms.RadioButton optRadValidateLength;
-        private System.Windows.Forms.Panel optPnlValLenOptions;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown optNudValLenMin;
-        private System.Windows.Forms.NumericUpDown optNudValLenMax;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown optNudMaxExt;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem tsmiFillPathInPrev;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label4;
