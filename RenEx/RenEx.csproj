@@ -53,8 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="libWyvernzora, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\libWyvernzora.dll</HintPath>
+      <HintPath>..\packages\libWyvernzora.0.5.1\lib\libWyvernzora.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -130,6 +129,7 @@
     <EmbeddedResource Include="RuleEditorDialog.resx">
       <DependentUpon>RuleEditorDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -141,7 +141,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Libraries\libWyvernzora.dll" />
     <Content Include="RenEx.ico" />
     <None Include="Resources\Nargacuga.png" />
     <None Include="Resources\Warning.ico" />

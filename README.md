@@ -10,6 +10,9 @@ But ***seriously***, **RenEx** was never meant to be a *drag-and-done* type of u
 
 As of March 29, 2013 the project is still work in progress. It works, but a lot of convenience elements and AI is still missing.
 
+##Dependencies
+This project depends on my personal library, **libWyvernzora**. It is updated via my personal NuGet feed, in order to acquire the package please add the following NuGet feed to your VisualStudio:
+`http://www.myget.org/F/wyvernzora/`
 
 ##License
 The MIT License (MIT)
