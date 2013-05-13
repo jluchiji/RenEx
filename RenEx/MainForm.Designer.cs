@@ -57,6 +57,12 @@
             this.lvRules = new System.Windows.Forms.ListView();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmsRuleList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiAddRule = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiRemoveRules = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiAddFromTemplate = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiAddToTemplates = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -73,12 +79,9 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmiPvExtractRule = new System.Windows.Forms.ToolStripMenuItem();
             this.lvPreviewState = new System.Windows.Forms.ImageList(this.components);
-            this.cmsRuleList = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.tsmiAddRule = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiRemoveRules = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmiAddFromTemplate = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiAddToTemplates = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pbProgress = new System.Windows.Forms.ToolStripProgressBar();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -86,11 +89,12 @@
             this.splitContainer1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.cmsRuleList.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.cmsPreviewList.SuspendLayout();
-            this.cmsRuleList.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -209,7 +213,9 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 24);
             this.splitContainer1.Name = "splitContainer1";
@@ -223,7 +229,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.lvPreview);
             this.splitContainer1.Panel2MinSize = 350;
-            this.splitContainer1.Size = new System.Drawing.Size(784, 457);
+            this.splitContainer1.Size = new System.Drawing.Size(784, 432);
             this.splitContainer1.SplitterDistance = 366;
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 1;
@@ -238,7 +244,7 @@
             this.tabControl1.Location = new System.Drawing.Point(14, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(348, 441);
+            this.tabControl1.Size = new System.Drawing.Size(348, 426);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -250,7 +256,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 23);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(340, 414);
+            this.tabPage1.Size = new System.Drawing.Size(340, 399);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Rules";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -259,7 +265,7 @@
             // 
             this.renBtnRemoveRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnRemoveRule.Image = global::RenEx.Properties.Resources.Remove16;
-            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 387);
+            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 373);
             this.renBtnRemoveRule.Name = "renBtnRemoveRule";
             this.renBtnRemoveRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnRemoveRule.TabIndex = 3;
@@ -271,7 +277,7 @@
             this.renBtnRunRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.renBtnRunRename.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.renBtnRunRename.Image = global::RenEx.Properties.Resources.Save16;
-            this.renBtnRunRename.Location = new System.Drawing.Point(245, 387);
+            this.renBtnRunRename.Location = new System.Drawing.Point(245, 373);
             this.renBtnRunRename.Name = "renBtnRunRename";
             this.renBtnRunRename.Size = new System.Drawing.Size(87, 25);
             this.renBtnRunRename.TabIndex = 2;
@@ -283,7 +289,7 @@
             // 
             this.renBtnAddRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnAddRule.Image = global::RenEx.Properties.Resources.Add16;
-            this.renBtnAddRule.Location = new System.Drawing.Point(7, 387);
+            this.renBtnAddRule.Location = new System.Drawing.Point(7, 373);
             this.renBtnAddRule.Name = "renBtnAddRule";
             this.renBtnAddRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnAddRule.TabIndex = 1;
@@ -315,7 +321,7 @@
             this.lvRules.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvRules.Location = new System.Drawing.Point(3, 3);
             this.lvRules.Name = "lvRules";
-            this.lvRules.Size = new System.Drawing.Size(334, 377);
+            this.lvRules.Size = new System.Drawing.Size(334, 363);
             this.lvRules.TabIndex = 0;
             this.lvRules.UseCompatibleStateImageBehavior = false;
             this.lvRules.View = System.Windows.Forms.View.Details;
@@ -330,13 +336,57 @@
             this.columnHeader1.Text = "Type";
             this.columnHeader1.Width = 81;
             // 
+            // cmsRuleList
+            // 
+            this.cmsRuleList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiAddRule,
+            this.tsmiRemoveRules,
+            this.toolStripSeparator2,
+            this.tsmiAddFromTemplate,
+            this.tsmiAddToTemplates});
+            this.cmsRuleList.Name = "cmsRuleList";
+            this.cmsRuleList.Size = new System.Drawing.Size(181, 98);
+            // 
+            // tsmiAddRule
+            // 
+            this.tsmiAddRule.Image = global::RenEx.Properties.Resources.Add16;
+            this.tsmiAddRule.Name = "tsmiAddRule";
+            this.tsmiAddRule.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAddRule.Text = "Add Rule";
+            // 
+            // tsmiRemoveRules
+            // 
+            this.tsmiRemoveRules.Enabled = false;
+            this.tsmiRemoveRules.Image = global::RenEx.Properties.Resources.Remove16;
+            this.tsmiRemoveRules.Name = "tsmiRemoveRules";
+            this.tsmiRemoveRules.Size = new System.Drawing.Size(180, 22);
+            this.tsmiRemoveRules.Text = "Remove Rule(s)";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // tsmiAddFromTemplate
+            // 
+            this.tsmiAddFromTemplate.Name = "tsmiAddFromTemplate";
+            this.tsmiAddFromTemplate.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAddFromTemplate.Text = "Add From Template";
+            // 
+            // tsmiAddToTemplates
+            // 
+            this.tsmiAddToTemplates.Enabled = false;
+            this.tsmiAddToTemplates.Name = "tsmiAddToTemplates";
+            this.tsmiAddToTemplates.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAddToTemplates.Text = "Add To Templates";
+            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.panel1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 23);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(340, 415);
+            this.tabPage3.Size = new System.Drawing.Size(340, 414);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Automagical™ Analysis";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -388,7 +438,7 @@
             this.lvPreview.LargeImageList = this.lvPreviewState;
             this.lvPreview.Location = new System.Drawing.Point(3, 3);
             this.lvPreview.Name = "lvPreview";
-            this.lvPreview.Size = new System.Drawing.Size(389, 440);
+            this.lvPreview.Size = new System.Drawing.Size(388, 426);
             this.lvPreview.SmallImageList = this.lvPreviewState;
             this.lvPreview.TabIndex = 1;
             this.lvPreview.UseCompatibleStateImageBehavior = false;
@@ -468,50 +518,29 @@
             this.lvPreviewState.Images.SetKeyName(1, "Warning");
             this.lvPreviewState.Images.SetKeyName(2, "Applied");
             this.lvPreviewState.Images.SetKeyName(3, "Error");
+            this.lvPreviewState.Images.SetKeyName(4, "Delete");
             // 
-            // cmsRuleList
+            // statusStrip1
             // 
-            this.cmsRuleList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiAddRule,
-            this.tsmiRemoveRules,
-            this.toolStripSeparator2,
-            this.tsmiAddFromTemplate,
-            this.tsmiAddToTemplates});
-            this.cmsRuleList.Name = "cmsRuleList";
-            this.cmsRuleList.Size = new System.Drawing.Size(181, 120);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.pbProgress});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 459);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip1.TabIndex = 2;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // tsmiAddRule
+            // toolStripStatusLabel1
             // 
-            this.tsmiAddRule.Image = global::RenEx.Properties.Resources.Add16;
-            this.tsmiAddRule.Name = "tsmiAddRule";
-            this.tsmiAddRule.Size = new System.Drawing.Size(180, 22);
-            this.tsmiAddRule.Text = "Add Rule";
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(55, 17);
+            this.toolStripStatusLabel1.Text = "Progress:";
             // 
-            // tsmiRemoveRules
+            // pbProgress
             // 
-            this.tsmiRemoveRules.Enabled = false;
-            this.tsmiRemoveRules.Image = global::RenEx.Properties.Resources.Remove16;
-            this.tsmiRemoveRules.Name = "tsmiRemoveRules";
-            this.tsmiRemoveRules.Size = new System.Drawing.Size(180, 22);
-            this.tsmiRemoveRules.Text = "Remove Rule(s)";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
-            // 
-            // tsmiAddFromTemplate
-            // 
-            this.tsmiAddFromTemplate.Name = "tsmiAddFromTemplate";
-            this.tsmiAddFromTemplate.Size = new System.Drawing.Size(180, 22);
-            this.tsmiAddFromTemplate.Text = "Add From Template";
-            // 
-            // tsmiAddToTemplates
-            // 
-            this.tsmiAddToTemplates.Enabled = false;
-            this.tsmiAddToTemplates.Name = "tsmiAddToTemplates";
-            this.tsmiAddToTemplates.Size = new System.Drawing.Size(180, 22);
-            this.tsmiAddToTemplates.Text = "Add To Templates";
+            this.pbProgress.Name = "pbProgress";
+            this.pbProgress.Size = new System.Drawing.Size(100, 16);
             // 
             // MainForm
             // 
@@ -519,6 +548,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(784, 481);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -536,12 +566,14 @@
             this.splitContainer1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.cmsRuleList.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.cmsPreviewList.ResumeLayout(false);
-            this.cmsRuleList.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -595,6 +627,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem tsmiAddFromTemplate;
         private System.Windows.Forms.ToolStripMenuItem tsmiAddToTemplates;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripProgressBar pbProgress;
     }
 }
 

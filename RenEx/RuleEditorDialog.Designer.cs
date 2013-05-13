@@ -31,18 +31,19 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RuleEditorDialog));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.radName = new System.Windows.Forms.RadioButton();
-            this.radExtension = new System.Windows.Forms.RadioButton();
-            this.radDirectory = new System.Windows.Forms.RadioButton();
             this.txtMatchExp = new System.Windows.Forms.TextBox();
+            this.radDirectory = new System.Windows.Forms.RadioButton();
+            this.radExtension = new System.Windows.Forms.RadioButton();
+            this.radName = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtRepExp = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.txtRepExp = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.error = new System.Windows.Forms.ErrorProvider(this.components);
+            this.chbDelete = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.error)).BeginInit();
@@ -64,14 +65,34 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Match Expression";
             // 
-            // label1
+            // txtMatchExp
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Rule Type:";
+            this.txtMatchExp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMatchExp.Location = new System.Drawing.Point(19, 52);
+            this.txtMatchExp.Name = "txtMatchExp";
+            this.txtMatchExp.Size = new System.Drawing.Size(402, 20);
+            this.txtMatchExp.TabIndex = 4;
+            // 
+            // radDirectory
+            // 
+            this.radDirectory.AutoSize = true;
+            this.radDirectory.Location = new System.Drawing.Point(225, 19);
+            this.radDirectory.Name = "radDirectory";
+            this.radDirectory.Size = new System.Drawing.Size(67, 17);
+            this.radDirectory.TabIndex = 3;
+            this.radDirectory.Text = "Directory";
+            this.radDirectory.UseVisualStyleBackColor = true;
+            // 
+            // radExtension
+            // 
+            this.radExtension.AutoSize = true;
+            this.radExtension.Location = new System.Drawing.Point(139, 19);
+            this.radExtension.Name = "radExtension";
+            this.radExtension.Size = new System.Drawing.Size(71, 17);
+            this.radExtension.TabIndex = 2;
+            this.radExtension.Text = "Extension";
+            this.radExtension.UseVisualStyleBackColor = true;
             // 
             // radName
             // 
@@ -85,46 +106,36 @@
             this.radName.Text = "Name";
             this.radName.UseVisualStyleBackColor = true;
             // 
-            // radExtension
+            // label1
             // 
-            this.radExtension.AutoSize = true;
-            this.radExtension.Location = new System.Drawing.Point(139, 19);
-            this.radExtension.Name = "radExtension";
-            this.radExtension.Size = new System.Drawing.Size(71, 17);
-            this.radExtension.TabIndex = 2;
-            this.radExtension.Text = "Extension";
-            this.radExtension.UseVisualStyleBackColor = true;
-            // 
-            // radDirectory
-            // 
-            this.radDirectory.AutoSize = true;
-            this.radDirectory.Location = new System.Drawing.Point(225, 19);
-            this.radDirectory.Name = "radDirectory";
-            this.radDirectory.Size = new System.Drawing.Size(67, 17);
-            this.radDirectory.TabIndex = 3;
-            this.radDirectory.Text = "Directory";
-            this.radDirectory.UseVisualStyleBackColor = true;
-            // 
-            // txtMatchExp
-            // 
-            this.txtMatchExp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMatchExp.Location = new System.Drawing.Point(19, 52);
-            this.txtMatchExp.Name = "txtMatchExp";
-            this.txtMatchExp.Size = new System.Drawing.Size(402, 20);
-            this.txtMatchExp.TabIndex = 4;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Rule Type:";
             // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.chbDelete);
             this.groupBox2.Controls.Add(this.txtRepExp);
             this.groupBox2.Location = new System.Drawing.Point(12, 133);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(440, 49);
+            this.groupBox2.Size = new System.Drawing.Size(440, 70);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Replacement Expression";
+            // 
+            // txtRepExp
+            // 
+            this.txtRepExp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRepExp.Location = new System.Drawing.Point(19, 42);
+            this.txtRepExp.Name = "txtRepExp";
+            this.txtRepExp.Size = new System.Drawing.Size(402, 20);
+            this.txtRepExp.TabIndex = 5;
             // 
             // label2
             // 
@@ -144,19 +155,10 @@
             this.txtName.Size = new System.Drawing.Size(366, 20);
             this.txtName.TabIndex = 3;
             // 
-            // txtRepExp
-            // 
-            this.txtRepExp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRepExp.Location = new System.Drawing.Point(19, 19);
-            this.txtRepExp.Name = "txtRepExp";
-            this.txtRepExp.Size = new System.Drawing.Size(402, 20);
-            this.txtRepExp.TabIndex = 5;
-            // 
             // btnOK
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(377, 194);
+            this.btnOK.Location = new System.Drawing.Point(377, 209);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 4;
@@ -166,7 +168,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(296, 194);
+            this.btnCancel.Location = new System.Drawing.Point(296, 209);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 5;
@@ -177,11 +179,21 @@
             // 
             this.error.ContainerControl = this;
             // 
+            // chbDelete
+            // 
+            this.chbDelete.AutoSize = true;
+            this.chbDelete.Location = new System.Drawing.Point(19, 19);
+            this.chbDelete.Name = "chbDelete";
+            this.chbDelete.Size = new System.Drawing.Size(76, 17);
+            this.chbDelete.TabIndex = 6;
+            this.chbDelete.Text = "Delete File";
+            this.chbDelete.UseVisualStyleBackColor = true;
+            // 
             // RuleEditorDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(464, 229);
+            this.ClientSize = new System.Drawing.Size(464, 244);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txtName);
@@ -190,9 +202,9 @@
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1200, 268);
+            this.MaximumSize = new System.Drawing.Size(1200, 360);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(480, 268);
+            this.MinimumSize = new System.Drawing.Size(480, 0);
             this.Name = "RuleEditorDialog";
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
@@ -223,5 +235,6 @@
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ErrorProvider error;
+        private System.Windows.Forms.CheckBox chbDelete;
     }
 }

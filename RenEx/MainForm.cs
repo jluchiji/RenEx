@@ -8,19 +8,21 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using libWyvernzora.Core;
 using libWyvernzora.IO;
 using System.Xml;
+using libWyvernzora.Utilities;
 
 namespace RenEx
 {
     public partial class MainForm : Form
     {
-        private const String CONFIG_FILE = "renex.cfg";
+        private const String ConfigFile = "renex.cfg";
 
         public MainForm()
         {
             // Load Configuration
-            String configPath = Path.Combine(Application.StartupPath, CONFIG_FILE);
+            String configPath = Path.Combine(Application.StartupPath, ConfigFile);
             if (!File.Exists(configPath))
             {
                 var cfg = Configuration.Instance; // Force creation of a new instance
@@ -32,10 +34,9 @@ namespace RenEx
                 Configuration.LoadConfiguration(configPath);
 
             // Initialize session stuff
-            DirectoryRules = new List<RenamingRule>();
-            NameRules = new List<RenamingRule>();
-            ExtensionRules = new List<RenamingRule>();
-            Files = new List<String>();
+            RenameResult = new Dictionary<String, RenExFileNameDescriptor>();
+            Rules = new RenamingRuleCollection();
+            Files = new List<string>();
 
             InitializeComponent();
             UIEventHandlers();
@@ -64,10 +65,10 @@ namespace RenEx
                 };
             tsmiClearAll.Click += (@s, e) =>
                 {
-                    Files.Clear();
-                    NameRules.Clear();
-                    ExtensionRules.Clear();
-                    DirectoryRules.Clear();
+                    RenameResult.Clear();
+                    Rules.NameRules.Clear();
+                    Rules.ExtensionRules.Clear();
+                    Rules.DirectoryRules.Clear();
 
                     UpdateUI();
                 };
@@ -87,7 +88,7 @@ namespace RenEx
         public static void SaveConfiguration()
         {
             // Load Configuration
-            String configPath = Path.Combine(Application.StartupPath, CONFIG_FILE);
+            String configPath = Path.Combine(Application.StartupPath, ConfigFile);
             var cfg = Configuration.Instance;
             using (var xw = XmlWriter.Create(configPath, new XmlWriterSettings() {Indent = true}))
             {
@@ -101,98 +102,86 @@ namespace RenEx
 
         public List<String> Files { get; private set; }
 
-        public List<RenamingRule> DirectoryRules { get; private set; }
-        public List<RenamingRule> NameRules { get; private set; }
-        public List<RenamingRule> ExtensionRules { get; private set; }
+        public RenamingRuleCollection Rules { get; private set; }
 
-        public Dictionary<String, String> RenameResult { get; private set; } 
-
+        public Dictionary<String, RenExFileNameDescriptor> RenameResult { get; private set; }
+        
 
         private void AddFiles(IEnumerable<String> fileNames)
         {
             Files.AddRange(fileNames.Where(t => !Files.Contains(t)));
             UpdatePreview();
         }
-
-        private FileNameDescriptor TransformSingle(FileNameDescriptor f)
-        {
-            Configuration.ExtensionConfig extConfig =
-                Configuration.Instance.ExtensionConfigs[Configuration.Instance.CurrentExtensionSettings];
-
-            // Clone old one
-            FileNameDescriptor fds = new FileNameDescriptor(f.ToString(), extConfig.MaximumExtensions, extConfig.Validator);
-
-            try
-            {
-                // Run Name Rules
-                foreach (RenamingRule rule in NameRules.Where(r => r.Active))
-                {
-                    Match match = Regex.Match(f.FileName, rule.RegularExpression, RegexOptions.IgnoreCase);
-                    if (!match.Success) continue;
-
-                    fds.FileName = match.Result(rule.ReplacementExpression);
-                    break;
-                }
-
-                // Run Extension Rules
-                foreach (RenamingRule rule in ExtensionRules.Where(r => r.Active))
-                {
-                    Match match = Regex.Match(f.Extensions, rule.RegularExpression, RegexOptions.IgnoreCase);
-                    if (!match.Success) continue;
-
-                    fds.Extensions = match.Result(rule.ReplacementExpression);
-                    break;
-                }
-
-                // Run Directory Rules
-                foreach (RenamingRule rule in DirectoryRules.Where(r => r.Active))
-                {
-                    Match match = Regex.Match(f.Directory, rule.RegularExpression, RegexOptions.IgnoreCase);
-                    if (!match.Success) continue;
-
-                    fds.Directory = match.Result(rule.ReplacementExpression);
-                    break;
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-
-            return StringComparer.InvariantCultureIgnoreCase.Equals(f.ToString(), fds.ToString()) ? f : fds;
-        }
-
+        
         private void ApplyRenaming()
         {
-            // Get Parameters
-            Configuration.ExtensionConfig extConfig =
-            Configuration.Instance.ExtensionConfigs[Configuration.Instance.CurrentExtensionSettings];
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.WorkerReportsProgress = true;
 
-            // Build Renaming List
-            var renaming = new List<KeyValuePair<FileNameDescriptor, FileNameDescriptor>>();
-            for (int i = 0; i < Files.Count; i++)
-            {
-                FileNameDescriptor original = new FileNameDescriptor(Files[i], extConfig.MaximumExtensions, extConfig.Validator);
-                FileNameDescriptor destination = TransformSingle(original);
+            bw.DoWork += (@s, e) =>
+                {
+                    Configuration.ExtensionConfig config =
+                        Configuration.Instance.ExtensionConfigs[Configuration.Instance.CurrentExtensionSettings];
+                    
+                    // Rename Files
+                    for (int i = 0; i < Files.Count; i++)
+                    {
+                        if (bw.CancellationPending) break;
 
-                // Fetch results if available
+                        String fname = Files[i];
 
-                // Skip file if it is already applied
-                if (RenameResult != null && RenameResult.ContainsKey(original.ToString()) && RenameResult[original.ToString()] == null)
-                    continue;
+                        if (RenameResult.ContainsKey(fname) && RenameResult[fname].IsApplied)
+                            continue;
 
-                // Add file if it is modified by a rule
-                if (!StringComparer.InvariantCultureIgnoreCase.Equals(original.ToString(), destination.ToString()))
-                    renaming.Add(new KeyValuePair<FileNameDescriptor, FileNameDescriptor>(original, destination));
-            }
+                        RenExFileNameDescriptor descriptor = new RenExFileNameDescriptor(fname, config.MaximumExtensions,
+                                                                                         config.Validator);
+                        RenExFileNameDescriptor destination = Rules.TransformSingle(descriptor);
 
-            
-            ProcessingDialog dlg = new ProcessingDialog(renaming.ToArray());
-            dlg.ShowDialog();
+                        try
+                        {
 
-            if (RenameResult == null) RenameResult = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-            foreach (var v in dlg.RenameResult) RenameResult[v.Key] = v.Value;
-            UpdatePreview();
+                            int progress = (int) ((double) i / Files.Count * 100);
+                            bw.ReportProgress(progress, descriptor.FileName);
+
+                            if (destination.MarkForDelete)
+                                File.Delete(descriptor.ToString());
+                            else
+                            {
+                                if (!Directory.Exists(destination.Directory))
+                                    Directory.CreateDirectory(destination.Directory);
+                                File.Move(descriptor.ToString(), destination.ToString());
+                            }
+
+                            destination.IsApplied = true;
+                        }
+                        catch (Exception x)
+                        {
+                            destination.ErrorObject = x;
+                        }
+
+                        RenameResult[descriptor.ToString()] = destination;
+                    }
+                };
+
+            bw.ProgressChanged += (@s, e) =>
+                {
+                    pbProgress.Value = e.ProgressPercentage;
+                };
+
+            bw.RunWorkerCompleted += (@s, e) =>
+                {
+                    pbProgress.Value = 0;
+                    splitContainer1.Enabled = true;
+                    menuStrip1.Enabled = true;
+                    UpdatePreview();
+                };
+
+            splitContainer1.Enabled = false;
+            menuStrip1.Enabled = false;
+
+            bw.RunWorkerAsync();
+
+
         }
 
         #endregion
@@ -232,11 +221,13 @@ namespace RenEx
                         ListViewItem[] items = new ListViewItem[lvPreview.SelectedItems.Count];
                         lvPreview.SelectedItems.CopyTo(items, 0);
 
-                        foreach (FileNameDescriptor fds in items.Select(f => f.Tag).OfType<FileNameDescriptor>())
+                        foreach (
+                            RenExFileNameDescriptor fds in items.Select(f => f.Tag).OfType<RenExFileNameDescriptor>())
                         {
-                            Files.RemoveAll(t => StringComparer.InvariantCultureIgnoreCase.Equals(fds.ToString(), t));
+                            RenameResult.Remove(fds.ToString());
+                            Files.RemoveAll(f => f.Equals(fds.ToString()));
                         }
-
+                        
                         UpdatePreview();
                     }
                 };
@@ -263,28 +254,7 @@ namespace RenEx
                     if (dlg.ShowDialog() == DialogResult.OK)
                     {
                         RenamingRule rule = dlg.Rule;
-                        rule.Active = true;
-
-                        switch (rule.Type)
-                        {
-                            case RenamingRule.RuleType.Name:
-                                {
-                                    NameRules.Add(rule);
-                                }
-                                break;
-                            case RenamingRule.RuleType.Extension:
-                                {
-                                    ExtensionRules.Add(rule);
-                                }
-                                break;
-                            case RenamingRule.RuleType.Directory:
-                                {
-                                    DirectoryRules.Add(rule);
-                                }
-                                break;
-                        }
-
-                        UpdateUI();
+                        Rules.AddRule(rule);
                     }
                 };
             tsmiRemoveRules.Click += (@s, e) =>
@@ -295,13 +265,22 @@ namespace RenEx
                     foreach (RenamingRule rule in selection.Select(v => v.Tag).OfType<RenamingRule>())
                     {
                         if (rule.Type == RenamingRule.RuleType.Name)
-                            NameRules.Remove(rule);
+                            Rules.NameRules.Remove(rule);
                         else if (rule.Type == RenamingRule.RuleType.Extension)
-                            ExtensionRules.Remove(rule);
+                            Rules.ExtensionRules.Remove(rule);
                         else
-                            DirectoryRules.Remove(rule);
+                            Rules.DirectoryRules.Remove(rule);
                     }
 
+                    UpdateUI();
+                };
+            tsmiAddToTemplates.Click += (@s, e) =>
+                {
+                    RenamingRule rule = lvRules.SelectedItems[0].Tag as RenamingRule;
+                    if (rule == null) throw new Exception();
+
+                    OptionsDialog dlg = new OptionsDialog(1, rule);
+                    dlg.ShowDialog();
                     UpdateUI();
                 };
             tsmiPvAddFiles.Click += (@s, e) =>
@@ -317,10 +296,8 @@ namespace RenEx
                     ListViewItem[] items = new ListViewItem[lvPreview.SelectedItems.Count];
                     lvPreview.SelectedItems.CopyTo(items, 0);
 
-                    foreach (FileNameDescriptor fds in items.Select(f => f.Tag).OfType<FileNameDescriptor>())
-                    {
-                        Files.RemoveAll(t => StringComparer.InvariantCultureIgnoreCase.Equals(fds.ToString(), t));
-                    }
+                    foreach (RenExFileNameDescriptor fds in items.Select(f => f.Tag).OfType<RenExFileNameDescriptor>())
+                        RenameResult.Remove(fds.ToString());
 
                     UpdatePreview();
                 };
@@ -345,17 +322,17 @@ namespace RenEx
                         {
                             case RenamingRule.RuleType.Name:
                                 {
-                                    NameRules.Add(rule);
+                                    Rules.NameRules.Add(rule);
                                 }
                                 break;
                             case RenamingRule.RuleType.Extension:
                                 {
-                                    ExtensionRules.Add(rule);
+                                    Rules.ExtensionRules.Add(rule);
                                 }
                                 break;
                             case RenamingRule.RuleType.Directory:
                                 {
-                                    DirectoryRules.Add(rule);
+                                    Rules.DirectoryRules.Add(rule);
                                 }
                                 break;
                         }
@@ -368,8 +345,8 @@ namespace RenEx
             tsmiPvRemApplied.Click += (@s, e) =>
                 {
                     List<String> items = new List<string>();
-                    items.AddRange(from f in Files where RenameResult.ContainsKey(f) && RenameResult[f] == null select f);
-                    foreach (var v in items) Files.Remove(v);
+                    items.AddRange(from f in RenameResult where RenameResult.ContainsKey(f.ToString()) && RenameResult[f.ToString()].ErrorObject == null select f.ToString());
+                    foreach (var v in items) RenameResult.Remove(v);
                     RenameResult.Clear();
                     UpdatePreview();
                 };
@@ -383,19 +360,19 @@ namespace RenEx
             lvRules.BeginUpdate();
 
             lvRules.Items.Clear();
-            foreach (ListViewItem lvi in NameRules.Select(item => new ListViewItem(new[] { item.Name, item.Type.ToString() }) { Checked = item.Active, Tag = item }))
+            foreach (ListViewItem lvi in Rules.NameRules.Select(item => new ListViewItem(new[] { item.Name, item.Type.ToString() }) { Checked = item.Active, Tag = item }))
             {
                 lvi.Group = lvRules.Groups["lvgName"];
                 lvRules.Items.Add(lvi);
             }
 
-            foreach (ListViewItem lvi in ExtensionRules.Select(item => new ListViewItem(new[] { item.Name, item.Type.ToString() }) { Checked = item.Active, Tag = item }))
+            foreach (ListViewItem lvi in Rules.ExtensionRules.Select(item => new ListViewItem(new[] { item.Name, item.Type.ToString() }) { Checked = item.Active, Tag = item }))
             {
                 lvi.Group = lvRules.Groups["lvgExt"];
                 lvRules.Items.Add(lvi);
             }
 
-            foreach (ListViewItem lvi in DirectoryRules.Select(item => new ListViewItem(new[] { item.Name, item.Type.ToString() }) { Checked = item.Active, Tag = item }))
+            foreach (ListViewItem lvi in Rules.DirectoryRules.Select(item => new ListViewItem(new[] { item.Name, item.Type.ToString() }) { Checked = item.Active, Tag = item }))
             {
                 lvi.Group = lvRules.Groups["lvgDir"];
                 lvRules.Items.Add(lvi);
@@ -406,58 +383,71 @@ namespace RenEx
 
         private void UpdatePreview()
         {
-            lvPreview.BeginUpdate();
-            lvPreview.Items.Clear();
-
-            Configuration.ExtensionConfig extConfig =
-                Configuration.Instance.ExtensionConfigs[Configuration.Instance.CurrentExtensionSettings];
-
-
-            foreach (var f in (from s in Files select new FileNameDescriptor(s, extConfig.MaximumExtensions, extConfig.Validator)))
+            using (new ActionLock(lvPreview.BeginUpdate, lvPreview.EndUpdate))
             {
-                ListViewItem lvi = new ListViewItem(FileDescriptorToString(f));
-                FileNameDescriptor preview = TransformSingle(f);
+                // Clear Items
+                lvPreview.Items.Clear();
 
+                // Get Active extension settings
+                var extConfig = Configuration.Instance.ExtensionConfigs[Configuration.Instance.CurrentExtensionSettings];
 
-                if (RenameResult != null && RenameResult.ContainsKey(f.ToString()))
+                // Add Items
+                foreach (
+                    var f in
+                        (from s in Files
+                         select new RenExFileNameDescriptor(s, extConfig.MaximumExtensions, extConfig.Validator)))
                 {
-                    String result = RenameResult[f.ToString()];
-                    if (result == null)
+                    // Create the item
+                    ListViewItem item = new ListViewItem(FileDescriptorToString(f)) { Tag = f };
+                    RenExFileNameDescriptor preview = Rules.TransformSingle(f);
+
+                    // Determine the item status
+                    if (RenameResult != null && RenameResult.ContainsKey(f.ToString()))
                     {
-                        // Successfully applied
-                        lvi.ImageKey = "Applied";
-                        lvi.SubItems.Add("Successfully applied.");
+                        // The file is already in the result list, get the result
+                        RenExFileNameDescriptor result = RenameResult[f.ToString()];
+
+                        // Having the file in the renaming results means it was applied
+                        if (result.ErrorObject != null)
+                        {
+                            // Applied with error
+                            item.ImageKey = "Error";
+                            item.SubItems.Add("Error: " + result.ErrorObject.Message);
+                        }
+                        else
+                        {
+                            // Successfully Applied
+                            item.ImageKey = "Applied";
+                            item.SubItems.Add("Successfully applied.");
+                        }
+                    }
+                    else if (f.Equals(preview))
+                    {
+                        // No rule matched since preview was not modified.
+                        item.SubItems.Add("No rule matched this file.");
+                    }
+                    else if (preview.ErrorObject != null)
+                    {
+                        // There is an error attached to the preview
+                        item.SubItems.Add("An error occured.");
+                        item.ImageKey = "Warning";
+                    }
+                    else if (preview.MarkForDelete)
+                    {
+                        // File is marked for deletion
+                        item.SubItems.Add("The file will be deleted.");
+                        item.ImageKey = "Delete";
                     }
                     else
                     {
-                        // Applied with errors
-                        lvi.ImageKey = "Error";
-                        lvi.SubItems.Add("Error: " + result);
+                        // Everything OK, ready to rename
+                        item.ImageKey = "OK";
+                        item.SubItems.Add(FileDescriptorToString(preview));
                     }
-                }
-                else if (f.Equals(preview))
-                {
-                    lvi.SubItems.Add("No rule matches this file.");
-                    //lvi.BackColor = Color.Moccasin;
-                }
-                else if (preview != null)
-                {
-                    lvi.SubItems.Add(FileDescriptorToString(preview));
-                    lvi.ImageKey = "OK";
-                    //lvi.BackColor = Color.LightGreen;
-                }
-                else
-                {
-                    lvi.SubItems.Add("An error occured.");
-                    lvi.ImageKey = "Warning";
-                    //lvi.BackColor = Color.LightPink;
-                }
 
-                lvi.Tag = f;
-                lvPreview.Items.Add(lvi);
-
+                    lvPreview.Items.Add(item);
+                }
             }
-                lvPreview.EndUpdate();
         }
 
         private void UpdateMenus()
@@ -474,6 +464,16 @@ namespace RenEx
                 tsmiExtSettings.DropDownItems.Add(tsmi);
             }
 
+            // Update Template Rule Menu
+            tsmiAddFromTemplate.DropDownItems.Clear();
+            foreach (ToolStripMenuItem tsmi in Configuration.Instance.Rules.Select(v => new ToolStripMenuItem(v.Key) {Tag=v.Value}))
+            {
+                tsmi.Click += AddTemplateRUleMenuClick;
+                tsmiAddFromTemplate.DropDownItems.Add(tsmi);
+            }
+            if (tsmiAddFromTemplate.DropDownItems.Count == 0)
+                tsmiAddFromTemplate.DropDownItems.Add(
+                    new ToolStripMenuItem("(No Templates Available)") {Enabled = false});
         }
 
         private void UpdateUI()
@@ -491,7 +491,6 @@ namespace RenEx
             return s;
         }
 
-
         private void ExtensionSettingsMenuClick(Object sender, EventArgs e)
         {
             ToolStripMenuItem item = sender as ToolStripMenuItem;
@@ -506,6 +505,16 @@ namespace RenEx
             // Apply new preset
             Configuration.Instance.CurrentExtensionSettings = config.Name;
             UpdatePreview();
+        }
+
+        private void AddTemplateRUleMenuClick(Object sender, EventArgs e)
+        {
+            ToolStripMenuItem tsmi = sender as ToolStripMenuItem;
+            if (tsmi == null) return;
+            RenamingRule rule = tsmi.Tag as RenamingRule;
+            if (rule == null) return;
+
+            Rules.AddRule(rule);
         }
 
         #endregion
@@ -526,17 +535,17 @@ namespace RenEx
                         {
                             case RenamingRule.RuleType.Name:
                                 {
-                                    NameRules.Add(rule);
+                                    Rules.NameRules.Add(rule);
                                 }
                                 break;
                             case RenamingRule.RuleType.Extension:
                                 {
-                                    ExtensionRules.Add(rule);
+                                    Rules.ExtensionRules.Add(rule);
                                 }
                                 break;
                             case RenamingRule.RuleType.Directory:
                                 {
-                                    DirectoryRules.Add(rule);
+                                    Rules.DirectoryRules.Add(rule);
                                 }
                                 break;
                         }
@@ -552,11 +561,11 @@ namespace RenEx
                     foreach (RenamingRule rule in selection.Select(v => v.Tag).OfType<RenamingRule>())
                     {
                         if (rule.Type == RenamingRule.RuleType.Name)
-                            NameRules.Remove(rule);
+                            Rules.NameRules.Remove(rule);
                         else if (rule.Type == RenamingRule.RuleType.Extension)
-                            ExtensionRules.Remove(rule);
+                            Rules.ExtensionRules.Remove(rule);
                         else
-                            DirectoryRules.Remove(rule);
+                            Rules.DirectoryRules.Remove(rule);
                     }
 
                     UpdateUI();

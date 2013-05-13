@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using libWyvernzora.Core;
 using libWyvernzora.IO;
 
 namespace RenEx
@@ -14,7 +15,7 @@ namespace RenEx
     public partial class ProcessingDialog : Form
     {
 
-        public ProcessingDialog(KeyValuePair<FileNameDescriptor, FileNameDescriptor>[] renaming)
+        public ProcessingDialog(Pair<RenExFileNameDescriptor, RenExFileNameDescriptor>[] renaming)
         {
             InitializeComponent();
 
@@ -25,17 +26,15 @@ namespace RenEx
         /// Renaming results.
         /// Key is file name descriptor, value is error message (null if everything ok).
         /// </summary>
-        public KeyValuePair<String, String>[] RenameResult { get; private set; }
+        public Pair<RenExFileNameDescriptor, Boolean>[] RenameResult { get; private set; }
 
-        public void ApplyRenaming(KeyValuePair<FileNameDescriptor, FileNameDescriptor>[] renaming)
+        public void ApplyRenaming(Pair<RenExFileNameDescriptor, RenExFileNameDescriptor>[] renaming)
         {
-            BackgroundWorker bw = new BackgroundWorker();
-            bw.WorkerReportsProgress = true;
-            bw.WorkerSupportsCancellation = true;
+            BackgroundWorker bw = new BackgroundWorker {WorkerReportsProgress = true, WorkerSupportsCancellation = true};
 
             bw.DoWork += (@s, a) =>
                 {
-                    var scheme = a.Argument as KeyValuePair<FileNameDescriptor, FileNameDescriptor>[];
+                    var scheme = a.Argument as Pair<RenExFileNameDescriptor, RenExFileNameDescriptor>[];
 
                     if (scheme == null)
                     {
@@ -44,32 +43,40 @@ namespace RenEx
                     }
 
 
-                    var result = new KeyValuePair<String, String>[scheme.Length];
+                    var result = new Pair<RenExFileNameDescriptor, Boolean>[scheme.Length];
                     for (int i = 0; i < scheme.Length; i++)
                     {
                         if (bw.CancellationPending) break;
 
                         try
                         {
-                            FileNameDescriptor original = scheme[i].Key;
-                            FileNameDescriptor destination = scheme[i].Value;
+                            RenExFileNameDescriptor original = scheme[i].First;
+                            RenExFileNameDescriptor destination = scheme[i].Second;
 
                             int progress = (int) ((double) i / scheme.Length * 100);
                             bw.ReportProgress(progress, original.FileName);
-    
-                            // Make sure destination dir is there
-                            if (!Directory.Exists(destination.Directory))
-                                Directory.CreateDirectory(destination.Directory);
 
-                            // Move file
-                            File.Move(original.ToString(), destination.ToString());
+                            if (destination.MarkForDelete)
+                            {
+                                // Delete the file if it is marked for deletion
+                                File.Delete(original.ToString());
+                            }
+                            else
+                            {
+                                // Make sure destination dir is there
+                                if (!Directory.Exists(destination.Directory))
+                                    Directory.CreateDirectory(destination.Directory);
 
+                                // Move file
+                                File.Move(original.ToString(), destination.ToString());
+                            }
                             // Report success
-                            result[i] = new KeyValuePair<String, String>(original.ToString(), null);
+                            result[i] = new Pair<RenExFileNameDescriptor, Boolean>(original, true);
                         }
                         catch (Exception x)
                         {
-                            result[i] = new KeyValuePair<String, String>(scheme[i].Key.ToString(), x.Message);
+                            scheme[i].First.ErrorObject = x;
+                            result[i] = new Pair<RenExFileNameDescriptor, Boolean>(scheme[i].First, false);
                         }
                     }
 
@@ -82,7 +89,7 @@ namespace RenEx
                 };
             bw.RunWorkerCompleted += (@s, a) =>
                 {
-                    RenameResult = (KeyValuePair<String, String>[]) a.Result;
+                    RenameResult = (Pair<RenExFileNameDescriptor, Boolean>[]) a.Result;
                     Close();
                 };
             bw.RunWorkerAsync(renaming);

@@ -36,13 +36,25 @@ namespace RenEx
             UpdateRuleTemplateList();
             //ShowExtensionSetting(Configuration.Instance.GetCurrentExtensionSettings());
 
-            if (mode >= 0)
-                tabControl1.SelectTab(mode);
-
-            if (arg != null)
+            if (mode == 1)
             {
-                // TODO Apply argument
+                tabControl1.SelectTab(1);
 
+                RenamingRule rule = arg as RenamingRule;
+                if (rule != null)
+                {
+                    String nname = "New Rule #" +
+                            libWyvernzora.Core.DirectIntConv.ToHexString(Configuration.Random.Next(), 8)
+                            .Substring(2);
+
+                    if (Configuration.Instance.Rules.ContainsKey(rule.Name))
+                        rule.Name = nname;
+
+                    Configuration.Instance.Rules.Add(rule.Name, rule);
+                    ShowRule(rule);
+                    UpdateRuleTemplateList(rule.Name);
+                    ApplyRltChanges();
+                }
             }
         }
 

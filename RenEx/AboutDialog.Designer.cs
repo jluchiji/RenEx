@@ -84,7 +84,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(97, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "ver. 1.0.RAWR!";
+            this.label4.Text = "ver. 0.8.RAWR!";
             // 
             // AboutDialog
             // 

@@ -37,6 +37,10 @@ namespace RenEx
                     DialogResult = DialogResult.Cancel;
                     Close();
                 };
+            chbDelete.CheckedChanged += (@s, e) =>
+                {
+                    txtRepExp.Enabled = !chbDelete.Checked;
+                };
             Load += (@s, a) =>
                 {
                     txtName.Focus();
@@ -75,7 +79,7 @@ namespace RenEx
             }
 
             // Verify Replace Expression
-            if (txtRepExp.Text.Length == 0)
+            if (txtRepExp.Text.Length == 0 && ! chbDelete.Checked)
             {
                 error.SetError(txtRepExp, "Replacement Expression must not be empty!");
                 success = false;
@@ -93,6 +97,7 @@ namespace RenEx
                         Name = txtName.Text,
                         RegularExpression = txtMatchExp.Text,
                         ReplacementExpression = txtRepExp.Text,
+                        DeleteFile = chbDelete.Checked,
                         Type =
                             radName.Checked
                                 ? RenamingRule.RuleType.Name

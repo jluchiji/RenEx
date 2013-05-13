@@ -22,6 +22,8 @@ namespace RenEx
 
         public String ReplacementExpression { get; set; }
 
+        public Boolean DeleteFile { get; set; }
+
         public Boolean Active { get; set; }
 
         public override string ToString()
