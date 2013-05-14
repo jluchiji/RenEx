@@ -20,10 +20,13 @@ namespace RenEx
             None = 0,
             Preview = 1,
             Applied = 2,
-            Error = 4
+            Error = 4,
+            Warning = 8
         }
 
         #endregion
+
+        private readonly String path;
         
         /// <summary>
         /// Constructor.
@@ -31,12 +34,13 @@ namespace RenEx
         /// </summary>
         public RenExFileNameDescriptor(FileNameDescriptor descriptor)
         {
+            path = descriptor.ToString();
+
             Directory = descriptor.Directory;
             FileName = descriptor.FileName;
             Extensions = descriptor.Extensions;
 
             MarkForDelete = false;
-            IsApplied = false;
             ErrorObject = null;
         }
 
@@ -45,12 +49,26 @@ namespace RenEx
         /// Initializes a new instance.
         /// </summary>
         /// <param name="path">File path to analyze.</param>
-        /// <param name="maxExt">Maximum </param>
-        /// <param name="validator"></param>
-        public RenExFileNameDescriptor(string path, int maxExt = 2, IFileExtValidator validator = null)
-            : base(path, maxExt, validator)
-        { }
-        
+        /// <param name="config">Extension configuration.</param>
+        public RenExFileNameDescriptor(string path, Configuration.ExtensionConfig config)
+            : base(path, config.MaximumExtensions, config.Validator)
+        {
+            this.path = path;
+        }
+
+        #region Rule changes and Refresh
+
+        /// <summary>
+        /// Changes analysis rules and refreshes the descriptor.
+        /// </summary>
+        /// <param name="config">New comfiguration.</param>
+        public void ChangeRule(Configuration.ExtensionConfig config)
+        {
+            AnalyzeFilePath(path, config.MaximumExtensions, config.Validator);
+        }
+
+        #endregion
+
         #region Transformed File Names
 
         private String transformedDirectory;
@@ -95,7 +113,29 @@ namespace RenEx
         public String TransformedFilePath
         {get { return TransformedDirectory + "\\" + TransformedFileName + TransformedExtensions; }}
 
+        /// <summary>
+        /// Gets a value indicating whether the file descriptor was modified.
+        /// </summary>
+        public Boolean IsTransformed
+        { get { return !StringComparer.CurrentCultureIgnoreCase.Equals(ToString(), TransformedFilePath); } }
+
+        /// <summary>
+        /// Clears all transformations made and restores the original file name.
+        /// </summary>
+        public void ClearTransformations()
+        {
+            MarkForDelete = false;
+            transformedDirectory = null;
+            transformedExtensions = null;
+            transformedFileName = null;
+        }
+
         #endregion
+
+        /// <summary>
+        /// Gets or sets the renaming state of the descriptor.
+        /// </summary>
+        public RenameState State { get; set; }
 
         /// <summary>
         /// Gets or sets the Exception object associated to the transforming process.

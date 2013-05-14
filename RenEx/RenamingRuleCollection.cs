@@ -87,18 +87,12 @@ namespace RenEx
         /// <param name="fd">Original file name descriptor.</param>
         /// <param name=""></param>
         /// <returns></returns>
-        public RenExFileNameDescriptor TransformSingle(FileNameDescriptor fd)
+        public void TransformSingle(RenExFileNameDescriptor fd)
         {
-            // Create a copy of the old file name descriptor
-            RenExFileNameDescriptor newFd = new RenExFileNameDescriptor
-                {
-                    Directory = fd.Directory,
-                    FileName = fd.FileName,
-                    Extensions = fd.Extensions
-                };
-
             try
             {
+                fd.ClearTransformations();
+
                 // Run name rules
                 foreach (RenamingRule rule in NameRules.Where(r => r.Active))
                 {
@@ -106,9 +100,9 @@ namespace RenEx
                     if (!match.Success) continue;
 
                     if (rule.DeleteFile)
-                        newFd.MarkForDelete = true;
+                        fd.MarkForDelete = true;
                     else
-                        newFd.FileName = match.Result(rule.ReplacementExpression);
+                        fd.TransformedFileName = match.Result(rule.ReplacementExpression);
 
                     break;
                 }
@@ -120,9 +114,9 @@ namespace RenEx
                     if (!match.Success) continue;
 
                     if (rule.DeleteFile)
-                        newFd.MarkForDelete = true;
+                        fd.MarkForDelete = true;
                     else
-                        newFd.Extensions = match.Result(rule.ReplacementExpression);
+                        fd.TransformedExtensions = match.Result(rule.ReplacementExpression);
 
                     break;
                 }
@@ -134,18 +128,19 @@ namespace RenEx
                     if (!match.Success) continue;
 
                     if (rule.DeleteFile)
-                        newFd.MarkForDelete = true;
+                        fd.MarkForDelete = true;
                     else
-                        newFd.Directory = match.Result(rule.ReplacementExpression);
+                        fd.TransformedDirectory = match.Result(rule.ReplacementExpression);
 
                     break;
                 }
 
-                return newFd;
+                fd.State = RenExFileNameDescriptor.RenameState.Preview;
             }
-            catch (Exception)
+            catch (Exception x)
             {
-                return null;
+                fd.State = RenExFileNameDescriptor.RenameState.Preview | RenExFileNameDescriptor.RenameState.Error;
+                fd.ErrorObject = x;
             }
         }
     }
