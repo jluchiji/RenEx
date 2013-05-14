@@ -49,6 +49,7 @@ namespace RenEx
                     OpenFileDialog dlg = new OpenFileDialog() { Multiselect = true };
                     if (dlg.ShowDialog() == DialogResult.OK)
                         Session.AddFile(dlg.FileNames);
+                    UpdatePreview();
                 };
             tsmiShowExtInPrev.Click += (@s, a) =>
                 {
@@ -71,6 +72,13 @@ namespace RenEx
                     dlg.ShowDialog();
                     UpdateUI();
                 };
+            tsmiProjectHomepage.Click += (@s, e) =>
+                                         System.Diagnostics.Process.Start("http://github.com/jluchiji/RenEx");
+            tsmiBugReport.Click += (@s, e) =>
+                                         System.Diagnostics.Process.Start("http://github.com/jluchiji/RenEx/issues");
+            tsmiOnlineHelp.Click += (@s, e) =>
+                                         System.Diagnostics.Process.Start("http://github.com/jluchiji/RenEx/wiki");
+
             // UI Maintenance
 
             UpdateUI();
@@ -145,8 +153,6 @@ namespace RenEx
                 Int32 width = (lvPreview.Width - 48) / 2;
                 lvPreview.Columns[0].Width = width;
                 lvPreview.Columns[1].Width = width;
-
-
             };
             lvPreview.KeyDown += (@s, e) =>
                 {

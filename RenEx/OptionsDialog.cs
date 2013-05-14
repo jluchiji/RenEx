@@ -18,6 +18,12 @@ namespace RenEx
             // WinForms default call
             InitializeComponent();
 
+            // Hide tab pages in development
+#if !DEBUG
+            tabControl1.TabPages.RemoveAt(3);
+            tabControl1.TabPages.RemoveAt(2);
+#endif
+
             // Attach Handlers
             btnOK.Click += (@s, e) => this.Close();
             Closing += (@s, e) =>

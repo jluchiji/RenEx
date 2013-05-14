@@ -82,6 +82,10 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.pbProgress = new System.Windows.Forms.ToolStripProgressBar();
+            this.tsmiProjectHomepage = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiBugReport = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiOnlineHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -199,6 +203,10 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiProjectHomepage,
+            this.tsmiOnlineHelp,
+            this.tsmiBugReport,
+            this.toolStripSeparator3,
             this.tsmiAbout});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -208,7 +216,7 @@
             // 
             this.tsmiAbout.Image = global::RenEx.Properties.Resources.Info16;
             this.tsmiAbout.Name = "tsmiAbout";
-            this.tsmiAbout.Size = new System.Drawing.Size(141, 22);
+            this.tsmiAbout.Size = new System.Drawing.Size(181, 22);
             this.tsmiAbout.Text = "About RenEx";
             // 
             // splitContainer1
@@ -542,6 +550,29 @@
             this.pbProgress.Name = "pbProgress";
             this.pbProgress.Size = new System.Drawing.Size(700, 16);
             // 
+            // tsmiProjectHomepage
+            // 
+            this.tsmiProjectHomepage.Name = "tsmiProjectHomepage";
+            this.tsmiProjectHomepage.Size = new System.Drawing.Size(156, 22);
+            this.tsmiProjectHomepage.Text = "Project Website";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(178, 6);
+            // 
+            // tsmiBugReport
+            // 
+            this.tsmiBugReport.Name = "tsmiBugReport";
+            this.tsmiBugReport.Size = new System.Drawing.Size(156, 22);
+            this.tsmiBugReport.Text = "Bug Report";
+            // 
+            // tsmiOnlineHelp
+            // 
+            this.tsmiOnlineHelp.Name = "tsmiOnlineHelp";
+            this.tsmiOnlineHelp.Size = new System.Drawing.Size(181, 22);
+            this.tsmiOnlineHelp.Text = "Online Help";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -630,6 +661,10 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripProgressBar pbProgress;
+        private System.Windows.Forms.ToolStripMenuItem tsmiProjectHomepage;
+        private System.Windows.Forms.ToolStripMenuItem tsmiBugReport;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOnlineHelp;
     }
 }
 
