@@ -232,6 +232,11 @@ namespace RenEx
             radRltName.Leave += (@s, e) => ApplyRltChanges();
             txtRltRegex.Leave += (@s, e) => ApplyRltChanges();
             txtRltRep.Leave += (@s, e) => ApplyRltChanges();
+            chbRltDelete.CheckedChanged += (@s, e) =>
+                {
+                    txtRltRep.Enabled = !chbRltDelete.Checked;
+                    ApplyRltChanges();
+                };
 
             // Add/Remove
             btnRltAdd.Click += (@s, e) =>
@@ -274,6 +279,8 @@ namespace RenEx
 
             txtRltRegex.Text = rule.RegularExpression;
             txtRltRep.Text = rule.ReplacementExpression;
+
+            chbRltDelete.Checked = rule.DeleteFile;
         }
 
         private void UpdateRuleTemplateList(String selection = null)
@@ -341,6 +348,7 @@ namespace RenEx
                     Name = txtRltName.Text,
                     RegularExpression = txtRltRegex.Text,
                     ReplacementExpression = txtRltRep.Text,
+                    DeleteFile = chbRltDelete.Checked,
                     Type = radRltName.Checked
                                ? RenamingRule.RuleType.Name
                                : radRltExt.Checked

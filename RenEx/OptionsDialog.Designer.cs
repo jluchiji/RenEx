@@ -32,7 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsDialog));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnExtRemove = new System.Windows.Forms.Button();
+            this.btnExtAdd = new System.Windows.Forms.Button();
+            this.lbExtPresets = new System.Windows.Forms.ListBox();
             this.gbExtOptions = new System.Windows.Forms.GroupBox();
+            this.txtExtName = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.txtExtList = new System.Windows.Forms.TextBox();
             this.radExtListVal = new System.Windows.Forms.RadioButton();
             this.nudExtLenMax = new System.Windows.Forms.NumericUpDown();
@@ -44,29 +49,25 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnRltRemove = new System.Windows.Forms.Button();
+            this.gbRltOptions = new System.Windows.Forms.GroupBox();
+            this.txtRltRep = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtRltRegex = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.radRltDir = new System.Windows.Forms.RadioButton();
+            this.radRltExt = new System.Windows.Forms.RadioButton();
+            this.radRltName = new System.Windows.Forms.RadioButton();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtRltName = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnRltAdd = new System.Windows.Forms.Button();
             this.lbRlt = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.btnOK = new System.Windows.Forms.Button();
             this.error = new System.Windows.Forms.ErrorProvider(this.components);
-            this.lbExtPresets = new System.Windows.Forms.ListBox();
-            this.btnExtAdd = new System.Windows.Forms.Button();
-            this.btnExtRemove = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtExtName = new System.Windows.Forms.TextBox();
-            this.gbRltOptions = new System.Windows.Forms.GroupBox();
-            this.btnRltRemove = new System.Windows.Forms.Button();
-            this.btnRltAdd = new System.Windows.Forms.Button();
-            this.txtRltName = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.radRltName = new System.Windows.Forms.RadioButton();
-            this.radRltExt = new System.Windows.Forms.RadioButton();
-            this.radRltDir = new System.Windows.Forms.RadioButton();
-            this.label8 = new System.Windows.Forms.Label();
-            this.txtRltRegex = new System.Windows.Forms.TextBox();
-            this.txtRltRep = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.chbRltDelete = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.gbExtOptions.SuspendLayout();
@@ -74,8 +75,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudExtLenMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExtMaxExt)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.error)).BeginInit();
             this.gbRltOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.error)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -108,6 +109,33 @@
             this.tabPage1.Text = "Extension Analysis";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // btnExtRemove
+            // 
+            this.btnExtRemove.Image = global::RenEx.Properties.Resources.Remove16;
+            this.btnExtRemove.Location = new System.Drawing.Point(36, 294);
+            this.btnExtRemove.Name = "btnExtRemove";
+            this.btnExtRemove.Size = new System.Drawing.Size(24, 24);
+            this.btnExtRemove.TabIndex = 11;
+            this.btnExtRemove.UseVisualStyleBackColor = true;
+            // 
+            // btnExtAdd
+            // 
+            this.btnExtAdd.Image = global::RenEx.Properties.Resources.Add16;
+            this.btnExtAdd.Location = new System.Drawing.Point(6, 294);
+            this.btnExtAdd.Name = "btnExtAdd";
+            this.btnExtAdd.Size = new System.Drawing.Size(24, 24);
+            this.btnExtAdd.TabIndex = 10;
+            this.btnExtAdd.UseVisualStyleBackColor = true;
+            // 
+            // lbExtPresets
+            // 
+            this.lbExtPresets.FormattingEnabled = true;
+            this.lbExtPresets.ItemHeight = 14;
+            this.lbExtPresets.Location = new System.Drawing.Point(6, 6);
+            this.lbExtPresets.Name = "lbExtPresets";
+            this.lbExtPresets.Size = new System.Drawing.Size(145, 284);
+            this.lbExtPresets.TabIndex = 3;
+            // 
             // gbExtOptions
             // 
             this.gbExtOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -130,6 +158,22 @@
             this.gbExtOptions.TabIndex = 2;
             this.gbExtOptions.TabStop = false;
             this.gbExtOptions.Text = "Options";
+            // 
+            // txtExtName
+            // 
+            this.txtExtName.Location = new System.Drawing.Point(53, 23);
+            this.txtExtName.Name = "txtExtName";
+            this.txtExtName.Size = new System.Drawing.Size(313, 21);
+            this.txtExtName.TabIndex = 11;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(9, 26);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(38, 14);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Name";
             // 
             // txtExtList
             // 
@@ -235,6 +279,139 @@
             this.tabPage2.Text = "Rule Templates";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnRltRemove
+            // 
+            this.btnRltRemove.Image = global::RenEx.Properties.Resources.Remove16;
+            this.btnRltRemove.Location = new System.Drawing.Point(36, 294);
+            this.btnRltRemove.Name = "btnRltRemove";
+            this.btnRltRemove.Size = new System.Drawing.Size(24, 24);
+            this.btnRltRemove.TabIndex = 13;
+            this.btnRltRemove.UseVisualStyleBackColor = true;
+            // 
+            // gbRltOptions
+            // 
+            this.gbRltOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbRltOptions.Controls.Add(this.chbRltDelete);
+            this.gbRltOptions.Controls.Add(this.txtRltRep);
+            this.gbRltOptions.Controls.Add(this.label9);
+            this.gbRltOptions.Controls.Add(this.txtRltRegex);
+            this.gbRltOptions.Controls.Add(this.label8);
+            this.gbRltOptions.Controls.Add(this.radRltDir);
+            this.gbRltOptions.Controls.Add(this.radRltExt);
+            this.gbRltOptions.Controls.Add(this.radRltName);
+            this.gbRltOptions.Controls.Add(this.label7);
+            this.gbRltOptions.Controls.Add(this.txtRltName);
+            this.gbRltOptions.Controls.Add(this.label6);
+            this.gbRltOptions.Enabled = false;
+            this.gbRltOptions.Location = new System.Drawing.Point(157, 6);
+            this.gbRltOptions.Name = "gbRltOptions";
+            this.gbRltOptions.Size = new System.Drawing.Size(384, 312);
+            this.gbRltOptions.TabIndex = 15;
+            this.gbRltOptions.TabStop = false;
+            this.gbRltOptions.Text = "Options";
+            // 
+            // txtRltRep
+            // 
+            this.txtRltRep.Location = new System.Drawing.Point(12, 221);
+            this.txtRltRep.Multiline = true;
+            this.txtRltRep.Name = "txtRltRep";
+            this.txtRltRep.Size = new System.Drawing.Size(354, 85);
+            this.txtRltRep.TabIndex = 21;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(9, 204);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(134, 14);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "Replacement Expression";
+            // 
+            // txtRltRegex
+            // 
+            this.txtRltRegex.Location = new System.Drawing.Point(12, 114);
+            this.txtRltRegex.Multiline = true;
+            this.txtRltRegex.Name = "txtRltRegex";
+            this.txtRltRegex.Size = new System.Drawing.Size(354, 65);
+            this.txtRltRegex.TabIndex = 19;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 97);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(106, 14);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Regular Expression";
+            // 
+            // radRltDir
+            // 
+            this.radRltDir.AutoSize = true;
+            this.radRltDir.Location = new System.Drawing.Point(221, 64);
+            this.radRltDir.Name = "radRltDir";
+            this.radRltDir.Size = new System.Drawing.Size(73, 18);
+            this.radRltDir.TabIndex = 17;
+            this.radRltDir.Text = "Directory";
+            this.radRltDir.UseVisualStyleBackColor = true;
+            // 
+            // radRltExt
+            // 
+            this.radRltExt.AutoSize = true;
+            this.radRltExt.Location = new System.Drawing.Point(127, 64);
+            this.radRltExt.Name = "radRltExt";
+            this.radRltExt.Size = new System.Drawing.Size(76, 18);
+            this.radRltExt.TabIndex = 16;
+            this.radRltExt.Text = "Extension";
+            this.radRltExt.UseVisualStyleBackColor = true;
+            // 
+            // radRltName
+            // 
+            this.radRltName.AutoSize = true;
+            this.radRltName.Checked = true;
+            this.radRltName.Location = new System.Drawing.Point(53, 64);
+            this.radRltName.Name = "radRltName";
+            this.radRltName.Size = new System.Drawing.Size(56, 18);
+            this.radRltName.TabIndex = 15;
+            this.radRltName.TabStop = true;
+            this.radRltName.Text = "Name";
+            this.radRltName.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 66);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(32, 14);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Type";
+            // 
+            // txtRltName
+            // 
+            this.txtRltName.Location = new System.Drawing.Point(53, 23);
+            this.txtRltName.Name = "txtRltName";
+            this.txtRltName.Size = new System.Drawing.Size(313, 21);
+            this.txtRltName.TabIndex = 13;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 26);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 14);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Name";
+            // 
+            // btnRltAdd
+            // 
+            this.btnRltAdd.Image = global::RenEx.Properties.Resources.Add16;
+            this.btnRltAdd.Location = new System.Drawing.Point(6, 294);
+            this.btnRltAdd.Name = "btnRltAdd";
+            this.btnRltAdd.Size = new System.Drawing.Size(24, 24);
+            this.btnRltAdd.TabIndex = 12;
+            this.btnRltAdd.UseVisualStyleBackColor = true;
+            // 
             // lbRlt
             // 
             this.lbRlt.FormattingEnabled = true;
@@ -278,180 +455,15 @@
             // 
             this.error.ContainerControl = this;
             // 
-            // lbExtPresets
+            // chbRltDelete
             // 
-            this.lbExtPresets.FormattingEnabled = true;
-            this.lbExtPresets.ItemHeight = 14;
-            this.lbExtPresets.Location = new System.Drawing.Point(6, 6);
-            this.lbExtPresets.Name = "lbExtPresets";
-            this.lbExtPresets.Size = new System.Drawing.Size(145, 284);
-            this.lbExtPresets.TabIndex = 3;
-            // 
-            // btnExtAdd
-            // 
-            this.btnExtAdd.Image = global::RenEx.Properties.Resources.Add16;
-            this.btnExtAdd.Location = new System.Drawing.Point(6, 294);
-            this.btnExtAdd.Name = "btnExtAdd";
-            this.btnExtAdd.Size = new System.Drawing.Size(24, 24);
-            this.btnExtAdd.TabIndex = 10;
-            this.btnExtAdd.UseVisualStyleBackColor = true;
-            // 
-            // btnExtRemove
-            // 
-            this.btnExtRemove.Image = global::RenEx.Properties.Resources.Remove16;
-            this.btnExtRemove.Location = new System.Drawing.Point(36, 294);
-            this.btnExtRemove.Name = "btnExtRemove";
-            this.btnExtRemove.Size = new System.Drawing.Size(24, 24);
-            this.btnExtRemove.TabIndex = 11;
-            this.btnExtRemove.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 26);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 14);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Name";
-            // 
-            // txtExtName
-            // 
-            this.txtExtName.Location = new System.Drawing.Point(53, 23);
-            this.txtExtName.Name = "txtExtName";
-            this.txtExtName.Size = new System.Drawing.Size(313, 21);
-            this.txtExtName.TabIndex = 11;
-            // 
-            // gbRltOptions
-            // 
-            this.gbRltOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbRltOptions.Controls.Add(this.txtRltRep);
-            this.gbRltOptions.Controls.Add(this.label9);
-            this.gbRltOptions.Controls.Add(this.txtRltRegex);
-            this.gbRltOptions.Controls.Add(this.label8);
-            this.gbRltOptions.Controls.Add(this.radRltDir);
-            this.gbRltOptions.Controls.Add(this.radRltExt);
-            this.gbRltOptions.Controls.Add(this.radRltName);
-            this.gbRltOptions.Controls.Add(this.label7);
-            this.gbRltOptions.Controls.Add(this.txtRltName);
-            this.gbRltOptions.Controls.Add(this.label6);
-            this.gbRltOptions.Enabled = false;
-            this.gbRltOptions.Location = new System.Drawing.Point(157, 6);
-            this.gbRltOptions.Name = "gbRltOptions";
-            this.gbRltOptions.Size = new System.Drawing.Size(384, 312);
-            this.gbRltOptions.TabIndex = 15;
-            this.gbRltOptions.TabStop = false;
-            this.gbRltOptions.Text = "Options";
-            // 
-            // btnRltRemove
-            // 
-            this.btnRltRemove.Image = global::RenEx.Properties.Resources.Remove16;
-            this.btnRltRemove.Location = new System.Drawing.Point(36, 294);
-            this.btnRltRemove.Name = "btnRltRemove";
-            this.btnRltRemove.Size = new System.Drawing.Size(24, 24);
-            this.btnRltRemove.TabIndex = 13;
-            this.btnRltRemove.UseVisualStyleBackColor = true;
-            // 
-            // btnRltAdd
-            // 
-            this.btnRltAdd.Image = global::RenEx.Properties.Resources.Add16;
-            this.btnRltAdd.Location = new System.Drawing.Point(6, 294);
-            this.btnRltAdd.Name = "btnRltAdd";
-            this.btnRltAdd.Size = new System.Drawing.Size(24, 24);
-            this.btnRltAdd.TabIndex = 12;
-            this.btnRltAdd.UseVisualStyleBackColor = true;
-            // 
-            // txtRltName
-            // 
-            this.txtRltName.Location = new System.Drawing.Point(53, 23);
-            this.txtRltName.Name = "txtRltName";
-            this.txtRltName.Size = new System.Drawing.Size(313, 21);
-            this.txtRltName.TabIndex = 13;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 26);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 14);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Name";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 66);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(32, 14);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "Type";
-            // 
-            // radRltName
-            // 
-            this.radRltName.AutoSize = true;
-            this.radRltName.Checked = true;
-            this.radRltName.Location = new System.Drawing.Point(53, 64);
-            this.radRltName.Name = "radRltName";
-            this.radRltName.Size = new System.Drawing.Size(56, 18);
-            this.radRltName.TabIndex = 15;
-            this.radRltName.TabStop = true;
-            this.radRltName.Text = "Name";
-            this.radRltName.UseVisualStyleBackColor = true;
-            // 
-            // radRltExt
-            // 
-            this.radRltExt.AutoSize = true;
-            this.radRltExt.Location = new System.Drawing.Point(127, 64);
-            this.radRltExt.Name = "radRltExt";
-            this.radRltExt.Size = new System.Drawing.Size(76, 18);
-            this.radRltExt.TabIndex = 16;
-            this.radRltExt.Text = "Extension";
-            this.radRltExt.UseVisualStyleBackColor = true;
-            // 
-            // radRltDir
-            // 
-            this.radRltDir.AutoSize = true;
-            this.radRltDir.Location = new System.Drawing.Point(221, 64);
-            this.radRltDir.Name = "radRltDir";
-            this.radRltDir.Size = new System.Drawing.Size(73, 18);
-            this.radRltDir.TabIndex = 17;
-            this.radRltDir.Text = "Directory";
-            this.radRltDir.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 97);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(106, 14);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "Regular Expression";
-            // 
-            // txtRltRegex
-            // 
-            this.txtRltRegex.Location = new System.Drawing.Point(12, 114);
-            this.txtRltRegex.Multiline = true;
-            this.txtRltRegex.Name = "txtRltRegex";
-            this.txtRltRegex.Size = new System.Drawing.Size(354, 85);
-            this.txtRltRegex.TabIndex = 19;
-            // 
-            // txtRltRep
-            // 
-            this.txtRltRep.Location = new System.Drawing.Point(12, 221);
-            this.txtRltRep.Multiline = true;
-            this.txtRltRep.Name = "txtRltRep";
-            this.txtRltRep.Size = new System.Drawing.Size(354, 85);
-            this.txtRltRep.TabIndex = 21;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 204);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(134, 14);
-            this.label9.TabIndex = 20;
-            this.label9.Text = "Replacement Expression";
+            this.chbRltDelete.AutoSize = true;
+            this.chbRltDelete.Location = new System.Drawing.Point(12, 183);
+            this.chbRltDelete.Name = "chbRltDelete";
+            this.chbRltDelete.Size = new System.Drawing.Size(80, 18);
+            this.chbRltDelete.TabIndex = 22;
+            this.chbRltDelete.Text = "Delete File";
+            this.chbRltDelete.UseVisualStyleBackColor = true;
             // 
             // OptionsDialog
             // 
@@ -478,9 +490,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudExtLenMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExtMaxExt)).EndInit();
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.error)).EndInit();
             this.gbRltOptions.ResumeLayout(false);
             this.gbRltOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.error)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -524,5 +536,6 @@
         private System.Windows.Forms.RadioButton radRltExt;
         private System.Windows.Forms.RadioButton radRltName;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox chbRltDelete;
     }
 }

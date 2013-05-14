@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using libWyvernzora.Core;
@@ -85,7 +86,7 @@ namespace RenEx
         /// <param name="paths">Original file paths.</param>
         public void RemoveFiles(IEnumerable<String> paths)
         {
-            foreach (var p in paths)
+            foreach (var p in paths.ToArray())
                 RemoveFile(p);
         }
 
@@ -116,6 +117,36 @@ namespace RenEx
 
         #endregion
 
+        #region Error & Warning Detection
+
+        /// <summary>
+        /// Gets a value indicating whether there are warnings in the session.
+        /// </summary>
+        public Boolean HasWarnings
+        {
+            get
+            {
+                return
+                    (from f in files.Values where f.State.HasFlag(RenExFileNameDescriptor.RenameState.Warning) select f)
+                        .Any();
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether there are errors in the session.
+        /// </summary>
+        public Boolean HasErrors
+        {
+            get
+            {
+                return
+                    (from f in files.Values where f.State.HasFlag(RenExFileNameDescriptor.RenameState.Error) select f)
+                        .Any();
+            }
+        } 
+
+        #endregion
+
         #region Preview & Applying Renaming
 
         public void UpdatePreview(Configuration.ExtensionConfig config)
@@ -127,7 +158,8 @@ namespace RenEx
             foreach (var f in files.Values.Where(f => !f.State.HasFlag(RenExFileNameDescriptor.RenameState.Applied) || f.State.HasFlag(RenExFileNameDescriptor.RenameState.Error)))
             {
                 // Update Rule
-                f.ChangeRule(config);
+                if (config != null)
+                    f.ChangeRule(config);
 
                 // Clear Error Object
                 f.ErrorObject = null;
@@ -148,7 +180,43 @@ namespace RenEx
 
         public void ApplyRenaming(Action<Int32, String> progress = null)
         {
-            
+            // Update Preview
+            UpdatePreview(null);
+
+            // Create a copy of files
+            RenExFileNameDescriptor[] tempFiles = files.Values.ToArray();
+
+            for (int i = 0; i < tempFiles.Length; i++)
+            {
+                try
+                {
+                    var f = tempFiles[i];
+
+                    // Skip if the file was applied without errors
+                    if (f.State.HasFlag(RenExFileNameDescriptor.RenameState.Applied) &&
+                        !f.State.HasFlag(RenExFileNameDescriptor.RenameState.Error))
+                        continue;
+
+                    // Mark as applied
+                    f.State = RenExFileNameDescriptor.RenameState.Applied;  // Mark as applied
+
+                    // Apply Renaming
+                    if (f.MarkForDelete) 
+                        File.Delete(f.ToString());  // Delete file if it was marked for delete
+                    else if (f.IsTransformed)
+                        File.Move(f.ToString(), f.TransformedFilePath);     // Rename the file if it was changed
+
+                    // Report Progress
+                    Int32 p = (Int32) ((i * 100.0) / tempFiles.Length);
+                    if (progress != null)
+                        progress(p, f.FileName);
+                }
+                catch (Exception x)
+                {
+                    tempFiles[i].State |= RenExFileNameDescriptor.RenameState.Error;
+                    tempFiles[i].ErrorObject = x;
+                }
+            }
         }
 
         #endregion

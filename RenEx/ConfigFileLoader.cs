@@ -19,6 +19,7 @@ namespace RenEx
 
             RenamingRule rule = new RenamingRule();
             rule.Name = ruleNode.Attributes["name"].InnerText;
+            rule.DeleteFile = Boolean.Parse(ruleNode.Attributes["delete"].InnerText);
             rule.RegularExpression = ruleNode.SelectSingleNode("RegExp").InnerText;
             rule.ReplacementExpression = ruleNode.SelectSingleNode("RepExp").InnerText;
             rule.Type = (RenamingRule.RuleType) Int32.Parse(ruleNode.Attributes["type"].InnerText);
@@ -122,6 +123,7 @@ namespace RenEx
                     using (new XmlElementActionLock(writer, "Rule"))
                     {
                         writer.WriteAttributeString("name", rule.Name);
+                        writer.WriteAttributeString("delete", rule.DeleteFile.ToString());
                         writer.WriteAttributeString("type", ((Int32)rule.Type).ToString(CultureInfo.InvariantCulture));
                         writer.WriteElementString("RegExp", rule.RegularExpression);
                         writer.WriteElementString("RepExp", rule.ReplacementExpression);

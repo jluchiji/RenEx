@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Name Rules", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Extension Rules", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Directory Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Name Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Extension Rules", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("Directory Rules", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -265,7 +265,7 @@
             // 
             this.renBtnRemoveRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnRemoveRule.Image = global::RenEx.Properties.Resources.Remove16;
-            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 373);
+            this.renBtnRemoveRule.Location = new System.Drawing.Point(41, 374);
             this.renBtnRemoveRule.Name = "renBtnRemoveRule";
             this.renBtnRemoveRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnRemoveRule.TabIndex = 3;
@@ -277,7 +277,7 @@
             this.renBtnRunRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.renBtnRunRename.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.renBtnRunRename.Image = global::RenEx.Properties.Resources.Save16;
-            this.renBtnRunRename.Location = new System.Drawing.Point(245, 373);
+            this.renBtnRunRename.Location = new System.Drawing.Point(245, 374);
             this.renBtnRunRename.Name = "renBtnRunRename";
             this.renBtnRunRename.Size = new System.Drawing.Size(87, 25);
             this.renBtnRunRename.TabIndex = 2;
@@ -289,7 +289,7 @@
             // 
             this.renBtnAddRule.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.renBtnAddRule.Image = global::RenEx.Properties.Resources.Add16;
-            this.renBtnAddRule.Location = new System.Drawing.Point(7, 373);
+            this.renBtnAddRule.Location = new System.Drawing.Point(7, 374);
             this.renBtnAddRule.Name = "renBtnAddRule";
             this.renBtnAddRule.Size = new System.Drawing.Size(27, 25);
             this.renBtnAddRule.TabIndex = 1;
@@ -308,20 +308,20 @@
             this.lvRules.ContextMenuStrip = this.cmsRuleList;
             this.lvRules.FullRowSelect = true;
             this.lvRules.GridLines = true;
-            listViewGroup1.Header = "Name Rules";
-            listViewGroup1.Name = "lvgName";
-            listViewGroup2.Header = "Extension Rules";
-            listViewGroup2.Name = "lvgExt";
-            listViewGroup3.Header = "Directory Rules";
-            listViewGroup3.Name = "lvgDir";
+            listViewGroup4.Header = "Name Rules";
+            listViewGroup4.Name = "lvgName";
+            listViewGroup5.Header = "Extension Rules";
+            listViewGroup5.Name = "lvgExt";
+            listViewGroup6.Header = "Directory Rules";
+            listViewGroup6.Name = "lvgDir";
             this.lvRules.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3});
+            listViewGroup4,
+            listViewGroup5,
+            listViewGroup6});
             this.lvRules.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvRules.Location = new System.Drawing.Point(3, 3);
             this.lvRules.Name = "lvRules";
-            this.lvRules.Size = new System.Drawing.Size(334, 363);
+            this.lvRules.Size = new System.Drawing.Size(334, 364);
             this.lvRules.TabIndex = 0;
             this.lvRules.UseCompatibleStateImageBehavior = false;
             this.lvRules.View = System.Windows.Forms.View.Details;
@@ -383,10 +383,10 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.panel1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 23);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(340, 414);
+            this.tabPage3.Size = new System.Drawing.Size(340, 400);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Automagical™ Analysis";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -396,7 +396,7 @@
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(18, 33);
+            this.panel1.Location = new System.Drawing.Point(18, 26);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(305, 348);
             this.panel1.TabIndex = 2;
@@ -438,7 +438,7 @@
             this.lvPreview.LargeImageList = this.lvPreviewState;
             this.lvPreview.Location = new System.Drawing.Point(3, 3);
             this.lvPreview.Name = "lvPreview";
-            this.lvPreview.Size = new System.Drawing.Size(388, 426);
+            this.lvPreview.Size = new System.Drawing.Size(387, 426);
             this.lvPreview.SmallImageList = this.lvPreviewState;
             this.lvPreview.TabIndex = 1;
             this.lvPreview.UseCompatibleStateImageBehavior = false;
@@ -540,7 +540,7 @@
             // pbProgress
             // 
             this.pbProgress.Name = "pbProgress";
-            this.pbProgress.Size = new System.Drawing.Size(100, 16);
+            this.pbProgress.Size = new System.Drawing.Size(700, 16);
             // 
             // MainForm
             // 

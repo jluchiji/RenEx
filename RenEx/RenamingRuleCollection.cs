@@ -82,6 +82,26 @@ namespace RenEx
         }
 
         /// <summary>
+        /// Removes a rule from the collection.
+        /// </summary>
+        /// <param name="rule">RenamingRule instance to remove.</param>
+        public void RemoveRule(RenamingRule rule)
+        {
+            switch (rule.Type)
+            {
+                case RenamingRule.RuleType.Name:
+                    NameRules.Remove(rule);
+                    break;
+                case RenamingRule.RuleType.Extension:
+                    ExtensionRules.Remove(rule);
+                    break;
+                case RenamingRule.RuleType.Directory:
+                    DirectoryRules.Remove(rule);
+                    break;
+            }
+        }
+
+        /// <summary>
         ///     Transforms single file name descriptor according to the set of rules.
         /// </summary>
         /// <param name="fd">Original file name descriptor.</param>
