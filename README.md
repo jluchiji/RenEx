@@ -1,26 +1,30 @@
-##RenEx
+#RenEx
 
-Powerful and sometimes automagical file renaming utility.
+Powerful and sometimes automagical file renaming utility.   
+RenEx is licensed under the MIT License. Full license can be found [here](LICENSE.md)
 
-Beware, mortal, that you are stepping into realms of black magic! Only strongest arch-mages with years of experience in casting spells in the cryptic language of *Regular Expressions* can fully utilize **RenEx**! If you are not hardened by countless battles with ***bugs***, **RenEx** may as well bring your doom!
+##Features
+###Organize your files in batches
+RenEx allows you to rename of move your files in batches of any size. You can rename all your files in just one session, no matter how complex their names are. You can preview every change you make, and RenEx detects some errors for you.
 
-But ***seriously***, **RenEx** was never meant to be a *drag-and-done* type of utility. You need in-depth knowledge of Regular Expressions to utilize it to its full potential. Be careful using this software if you don't feel comfortable debugging regular expressions, because if you apply a wrong rule it may mess up your files in a bad way. The software does not provide a way to reverse changes made by it.
+###Smart recognition of file names and extensions
+RenEx uses *Extended IO Framework* of *libWyvernzora* that allows it to separate file names from extensions in a smarter way. No need to say that RenEx supports multiple extensions, and allows you to rename them as well.
 
-**RenEx** is based on **[libWyvernzora](http://github.com/jluchiji/libWyvernzora)**, my personal library. Icons and artwork used in the project are by [Takegawa Shin](http://www.pixiv.net/member.php?id=201634).
+###Flexible rule system
+You define **rules** that specify how to rename files, and RenEx renames them for you! You can define as many rules as you need, so that every file and every corner case of your renaming needs is covered. There are separate rules for file names and file extensions. You can apply rules to the directory paths as well, in effect moving your files around!
 
-As of March 29, 2013 the project is still work in progress. It works, but a lot of convenience elements and AI is still missing.
+###Templates: Reuse your work
+You can save your rules and extension settings so that you can reuse them later in a few clicks. I am currently working on a way to reuse Regex snippets and other bits and pieces.
+
+
+
+##Notes
+**RenEx** was never meant to be a *drag-and-done* type of utility. You need in-depth knowledge of Regular Expressions to utilize it to its full potential. Be careful using this software if you don't feel comfortable debugging regular expressions, because if you apply a wrong rule it may mess up your files in a bad way. The software does not provide a way to reverse changes made by it.
+
+**RenEx** is based on **libWyvernzora**, my personal library, which is not open source at the moment. Icons and artwork used in the project are by [Takegawa Shin](http://www.pixiv.net/member.php?id=201634).
+
+As of May 14, 2013 the project (version 0.9) is still work in progress. It works, but a lot of convenience elements and AI are still missing.
 
 ##Dependencies
 This project depends on my personal library, **libWyvernzora**. It is updated via my personal NuGet feed, in order to acquire the package please add the following NuGet feed to your VisualStudio:
 `http://www.myget.org/F/wyvernzora/`
-
-##License
-The MIT License (MIT)
-
-Copyright (c) 2013 Jieni Luchijinzhou a.k.a Aragorn Wyvernzora
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
