@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{13CB85
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RenEx.Clone", "RenEx.Clone\RenEx.Clone.csproj", "{5CBF2F13-DD66-4665-8221-217CE73FDDA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{8487D337-19C8-497C-9DE3-8BEF277F0621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8487D337-19C8-497C-9DE3-8BEF277F0621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8487D337-19C8-497C-9DE3-8BEF277F0621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CBF2F13-DD66-4665-8221-217CE73FDDA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CBF2F13-DD66-4665-8221-217CE73FDDA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CBF2F13-DD66-4665-8221-217CE73FDDA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CBF2F13-DD66-4665-8221-217CE73FDDA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
