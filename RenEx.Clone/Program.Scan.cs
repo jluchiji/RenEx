@@ -27,6 +27,7 @@ namespace RenEx.Clone
             using (new XmlElementActionLock(result, "directory"))
             {
                 result.WriteAttributeString("name", Path.GetFileName(directory));
+                Console.WriteLine("Added DIR : {0}", Path.GetFileName(directory));
 
                 // Write Files
                 foreach (var f in Directory.GetFiles(directory))
@@ -34,6 +35,7 @@ namespace RenEx.Clone
                     using (new XmlElementActionLock(result, "file"))
                     {
                         result.WriteAttributeString("name", Path.GetFileName(f));
+                        Console.WriteLine("Added FILE: {0}", Path.GetFileName(f));
                     }
                 }
 
