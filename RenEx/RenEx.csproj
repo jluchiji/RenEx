@@ -76,6 +76,7 @@
     <Compile Include="AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="AI\AnalyzerConfiguration.cs" />
     <Compile Include="ConfigFileLoader.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="MainForm.cs">
@@ -92,10 +93,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RenamingRule.cs" />
-    <Compile Include="RenamingRuleCollection.cs" />
-    <Compile Include="RenamingSession.cs" />
-    <Compile Include="RenExFileNameDescriptor.cs" />
+    <Compile Include="Renaming\RenamingRule.cs" />
+    <Compile Include="Renaming\RenamingRuleCollection.cs" />
+    <Compile Include="Renaming\RenamingSession.cs" />
+    <Compile Include="Renaming\RenExFileNameDescriptor.cs" />
     <Compile Include="RuleEditorDialog.cs">
       <SubType>Form</SubType>
     </Compile>

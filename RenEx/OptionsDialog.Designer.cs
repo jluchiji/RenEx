@@ -51,6 +51,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnRltRemove = new System.Windows.Forms.Button();
             this.gbRltOptions = new System.Windows.Forms.GroupBox();
+            this.chbRltDelete = new System.Windows.Forms.CheckBox();
             this.txtRltRep = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtRltRegex = new System.Windows.Forms.TextBox();
@@ -67,7 +68,9 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.btnOK = new System.Windows.Forms.Button();
             this.error = new System.Windows.Forms.ErrorProvider(this.components);
-            this.chbRltDelete = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.gbExtOptions.SuspendLayout();
@@ -76,6 +79,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudExtMaxExt)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.gbRltOptions.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.error)).BeginInit();
             this.SuspendLayout();
             // 
@@ -312,6 +316,16 @@
             this.gbRltOptions.TabStop = false;
             this.gbRltOptions.Text = "Options";
             // 
+            // chbRltDelete
+            // 
+            this.chbRltDelete.AutoSize = true;
+            this.chbRltDelete.Location = new System.Drawing.Point(12, 183);
+            this.chbRltDelete.Name = "chbRltDelete";
+            this.chbRltDelete.Size = new System.Drawing.Size(80, 18);
+            this.chbRltDelete.TabIndex = 22;
+            this.chbRltDelete.Text = "Delete File";
+            this.chbRltDelete.UseVisualStyleBackColor = true;
+            // 
             // txtRltRep
             // 
             this.txtRltRep.Location = new System.Drawing.Point(12, 221);
@@ -423,6 +437,9 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button1);
+            this.tabPage3.Controls.Add(this.button2);
+            this.tabPage3.Controls.Add(this.listBox1);
             this.tabPage3.Location = new System.Drawing.Point(4, 23);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -455,15 +472,32 @@
             // 
             this.error.ContainerControl = this;
             // 
-            // chbRltDelete
+            // button1
             // 
-            this.chbRltDelete.AutoSize = true;
-            this.chbRltDelete.Location = new System.Drawing.Point(12, 183);
-            this.chbRltDelete.Name = "chbRltDelete";
-            this.chbRltDelete.Size = new System.Drawing.Size(80, 18);
-            this.chbRltDelete.TabIndex = 22;
-            this.chbRltDelete.Text = "Delete File";
-            this.chbRltDelete.UseVisualStyleBackColor = true;
+            this.button1.Image = global::RenEx.Properties.Resources.Remove16;
+            this.button1.Location = new System.Drawing.Point(36, 294);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(24, 24);
+            this.button1.TabIndex = 14;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Image = global::RenEx.Properties.Resources.Add16;
+            this.button2.Location = new System.Drawing.Point(6, 294);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(24, 24);
+            this.button2.TabIndex = 13;
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 14;
+            this.listBox1.Location = new System.Drawing.Point(6, 6);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(145, 284);
+            this.listBox1.TabIndex = 12;
             // 
             // OptionsDialog
             // 
@@ -492,6 +526,7 @@
             this.tabPage2.ResumeLayout(false);
             this.gbRltOptions.ResumeLayout(false);
             this.gbRltOptions.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.error)).EndInit();
             this.ResumeLayout(false);
 
@@ -537,5 +572,8 @@
         private System.Windows.Forms.RadioButton radRltName;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox chbRltDelete;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
